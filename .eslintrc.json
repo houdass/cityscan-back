@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": ["eslint:recommended", "google"],
+    "rules": {
+        "prefer-const": ["error", { "destructuring": "all" }],
+        "no-var": "error",
+        "no-new-object": "error",
+        "object-shorthand": "error",
+        "quote-props": ["error", "as-needed"],
+        "no-array-constructor": "error",
+        "array-callback-return": "error",
+        "quotes": ["error", "single"],
+        "prefer-template": "error",
+        "template-curly-spacing": ["error", "never"],
+        "space-before-function-paren": ["error", "never"],
+        "prefer-spread": "error",
+        "prefer-arrow-callback": "error",
+        "arrow-spacing": "error",
+        "arrow-parens": "error",
+        "arrow-body-style": ["error", "as-needed"],
+        "no-confusing-arrow": "error",
+        "comma-dangle": ["error", "never"],
+        "max-len": ["error", 120],
+
+        "linebreak-style": ["error", "unix"],
+        "semi": ["error", "always"],
+        "no-extra-semi": "error",
+        "keyword-spacing": ["error", { "after": true }],
+        "object-curly-spacing": ["error", "always"],
+        "brace-style": "error"
+    }
+}
