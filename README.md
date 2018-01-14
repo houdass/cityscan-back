@@ -15,11 +15,12 @@
 
 **Les commandes  :**
 
-- _npm start :_ Lancer le projet
+- _npm run dev :_ Lancer le projet en mode développement
+- _npm run prod :_ Lancer le projet en mode production
 - _npm test :_ Lancer les tests
 - _npm run apidoc :_ Générer l'api doc
 
-**TODO :**
+**TODO (mais pas pour l'instant) :**
 
 - Remplacer EcmaScript par TypeScript
 - Écrire des tests

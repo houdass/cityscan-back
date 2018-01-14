@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const config = require('./config/main');
-const authRouter = require('./routers/authRouter')();
-const userRouter = require('./routers/userRouter')();
-const roleRouter = require('./routers/roleRouter')();
-const permissionRouter = require('./routers/permissionRouter')();
+const authRouter = require('./routers/auth.router')();
+const userRouter = require('./routers/user.router')();
+const roleRouter = require('./routers/role.router')();
+const permissionRouter = require('./routers/permission.router')();
 
 // Database Connection
 mongoose.connect(config.database);

@@ -1,6 +1,6 @@
 const ROLES = {
-  CLIENT: 'client',
-  ADMIN: 'admin'
+  CLIENT: 'CLIENT',
+  ADMIN: 'ADMIN'
 };
 
 const PERMISSIONS = {

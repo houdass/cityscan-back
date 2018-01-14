@@ -23,10 +23,6 @@ const UserSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Role'
     },
-    permissions: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Permission'
-    }],
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Date }
   },
