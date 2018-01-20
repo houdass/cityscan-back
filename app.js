@@ -1,4 +1,5 @@
 // Importing Node modules and initializing Express
+const compression = require('compression');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -16,10 +17,11 @@ mongoose.connect(config.database);
 if (process.env.ENV === 'test') {
   // TODO
 } else {
-  mongoose.connect(config.database);
+  // Database Connection
+  mongoose.connect(process.env.MONGODB_URI || config.database);
 
   // Start the server
-  app.listen(config.port);
+  app.listen(process.env.PORT || config.port);
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,6 +31,8 @@ app.use(bodyParser.json());
 
 // Setting up basic middleware for all Express requests
 app.use(logger('dev')); // Log requests to API using morgan
+
+app.use(compression());
 
 // Enable CORS from client-side
 app.use((req, res, next) => {

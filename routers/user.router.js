@@ -141,7 +141,7 @@ module.exports = () => {
   userRouter.put('/:id', userController.edit);
 
   /**
-   * @api {delete} role/:id Remove user
+   * @api {delete} user/:id Remove user
    * @apiName removeUser
    * @apiGroup User
    * @apiParam {String} id User id

@@ -1,0 +1,1 @@
+{"version":3,"sources":["lang-hs.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,sBAAsB,KAAK,gBAAkB,MAAM,2CAA2C,KAAK,MAAM,MAAM,mCAAmC,KAAK,MAAM,MAAM,yDAAyD,KAAK,iBAAiB,MAAM,+DAA+D,MAAM,sJACjX,OAAO,MAAM,wCAAwC,MAAM,wCAAwC","file":"lang-hs.js"}

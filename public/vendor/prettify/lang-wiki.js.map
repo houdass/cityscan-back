@@ -1,0 +1,1 @@
+{"version":3,"sources":["lang-wiki.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,uBAAuB,KAAK,4CAAiD,MAAM,gBAAgB,KAAK,aAAa,iBAAiB,+BAA+B,MAAM,qDAAqD,QAAQ,4BAA4B,QAAQ,mBAAmB,MAAM,kEAAkE,MAAM,6CAA6C,SAC9cF,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,YAAY,KAAK,WAAW","file":"lang-wiki.js"}

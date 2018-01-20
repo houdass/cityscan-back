@@ -1,5 +1,4 @@
-const gulp = require('gulp')
-const minify = require('gulp-minifier');
+const gulp = require('gulp');
 const exec = require('child_process').exec;
 const browserSync = require('browser-sync').create();
 const $ = require('gulp-load-plugins')({ lazy: true });
@@ -18,40 +17,6 @@ gulp.task('dev', ['apidoc', 'eslint'], () => {
         startBrowserSync();
     });
 });
-
-gulp.task('prod', ['minify', 'eslint'], () => {
-  log('*** Start Project ***');
-  $.env({ vars: { ENV: 'prod' } });
-  $.nodemon({
-    script: './app.js',
-    ext: 'js',
-    env: {
-      PORT: config.portNodemon
-    },
-    ignore: ['./node_modules/**']
-  }).on('start', () => {
-    startBrowserSync();
-  });
-});
-
-gulp.task('minify', ['apidoc'], () => {
-  return gulp.src('public/**/*').pipe(minify({
-    minify: true,
-    minifyHTML: {
-      collapseWhitespace: true,
-      conservativeCollapse: true
-    },
-    minifyJS: {
-      sourceMap: true
-    },
-    minifyCSS: true,
-    getKeptComment: (content, filePath) => {
-      const m = content.match(/\/\*![\s\S]*?\*\//img);
-      return m && m.join('\n') + '\n' || '';
-    }
-  })).pipe(gulp.dest('public/'));
-});
-
 
 gulp.task('test', () => {
     log('*** Start tests ***');

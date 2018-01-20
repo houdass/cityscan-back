@@ -1,0 +1,1 @@
+{"version":3,"sources":["lang-llvm.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,kBAAkB,KAAK,aAAkB,MAAM,qCAAqC,KAAK,MAAM,MAAM,aAAa,KAAK,QAAQ,MAAM,+CAA+C,MAAM,0BAA0B,OAAO,MAAM,cAAc,MAAM,+BAA+B,MAAM,gCAAgC,OAAO","file":"lang-llvm.js"}

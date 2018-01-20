@@ -1,0 +1,1 @@
+{"version":3,"sources":["lang-vhdl.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,kBAAkB,KAAK,eAAoB,MAAM,oCAAoC,MAAM,gBAAgB,MAAM,ymBACrK,OAAO,MAAM,gKAAgK,OAAO,MAAM,2QAA2Q,OAAO,MAAM,oGACjd,MAAM,8BAA8B,MAAM,mDAAmD,OAAO","file":"lang-vhdl.js"}

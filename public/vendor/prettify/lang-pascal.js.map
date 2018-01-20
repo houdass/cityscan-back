@@ -1,0 +1,1 @@
+{"version":3,"sources":["lang-pascal.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,sCAAsC,KAAK,MAAM,MAAM,OAAO,KAAK,eAAoB,MAAM,8CAA8C,OAAO,MAAM,mUAC5M,OAAO,MAAM,4BAA4B,OAAO,MAAM,mBAAmB,OAAO,MAAM,2DAA2D,KAAK,eAAe,MAAM,qBAAqB,SAAS","file":"lang-pascal.js"}

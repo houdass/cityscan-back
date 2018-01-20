@@ -4,7 +4,7 @@
 - _Express_ : pour créer l'api REST.
 - _MongoDB_ : BD nosql.
 - _Mongoose_ : Solution ODM(Object Data Mapping).
-- Nightmare.js: Pour les web scraping.
+- Nightmare.js : Pour les web scraping.
 - _Gulp_ : Task runner.
 - _Nodemon_ : Nodemon est un utilitaire qui surveille le serveur et le redémarre automatiquement en cas de changement.
 - _Passport.js_ : Passport est un middleware d'authentification pour Node.js.

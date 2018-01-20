@@ -1,8 +1,8 @@
 module.exports = {
   // Secret key for JWT signing and encryption
   secret: 'hiit-cityscan-secret-passphrase',
-  // Database connection information
-  database: 'mongodb://localhost/cityscan',
+  // Database connection information ('mongodb://localhost/cityscan')
+  database: 'mongodb://demo:demo@ds251737.mlab.com:51737/cityscan',
   // Setting port for server
   port: process.env.PORT || 3030,
   portBrowserSync: 3000,

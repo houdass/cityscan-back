@@ -1,0 +1,1 @@
+{"version":3,"sources":["lang-lua.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,kBAAkB,KAAK,aAAkB,MAAM,uEAAuE,KAAK,UAAU,MAAM,iDAAiD,MAAM,kCAAkC,MAAM,oHAAoH,OAAO,MAAM,qEAC9Z,MAAM,gBAAgB,MAAM,kDAAkD","file":"lang-lua.js"}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["lang-swift.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAcAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,oBAAoB,KAAK,kBAAoB,MAAM,oDAAoD,KAAK,QAAQ,MAAM,0GAA0G,OAAO,MAAM,6FAA6F,OAAO,MAAM,wBAAwB,OAAO,MAAM,qpBACpb,OAAO,MAAM,iBAAiB,OAAO,MAAM,0BAA0B,OAAO,MAAM,wMAAwM,OAAO,MAAM,iDAAiD,SAAS","file":"lang-swift.js"}

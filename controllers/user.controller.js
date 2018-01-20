@@ -18,10 +18,7 @@ const userController = () => {
 
   // Edit User
   const edit = (req, res) => {
-    req.user.firstName = req.body.firstName;
-    req.user.lastName = req.body.lastName;
-    req.user.email = req.body.email;
-    req.user.role = req.body.role;
+    req.user.set(req.body);
     req.user.save((err, user) => {
       if (err) {
         res.status(500).send(err);
