@@ -3,6 +3,7 @@ import gulp from 'gulp';
 import { exec } from 'child_process';
 import CONFIG from './config/main';
 
+const browserSync = require('browser-sync').create();
 const $ = require('gulp-load-plugins')({ lazy: true });
 
 const files = ['config/*.js', 'constants.js', 'models/*.js', 'services/*.js',
@@ -78,7 +79,6 @@ function notify(options) {
  * Start browserSync.
  */
 function startBrowserSync() {
-  const browserSync = require('browser-sync').create();
   if (browserSync.active) {
     return;
   }

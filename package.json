@@ -22,6 +22,7 @@
     "babelify": "^8.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
+    "browser-sync": "^2.18.12",
     "compression": "^1.7.1",
     "crypto": "0.0.3",
     "eslint": "^4.16.0",
@@ -43,7 +44,6 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.18.12",
     "eslint-config-google": "^0.9.1",
     "gulp-concat-js": "^0.1.0",
     "gulp-env": "^0.4.0",
