@@ -23,7 +23,7 @@ gulp.task('dev', ['apidoc', 'eslint', 'babel', 'watch'], () => {
   });
 });
 
-gulp.task('prod', ['build', 'apidoc'], () => {
+gulp.task('prod', ['build', 'apidoc'], (cb) => {
   log('*** PROD ENV ***');
   exec('node ./dist/app.js', (err, stdout, stderr) => {
     log(stdout);
