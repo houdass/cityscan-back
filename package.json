@@ -30,10 +30,10 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-concat-js": "^0.1.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-sourcemaps": "^2.6.3",
     "gulp-uglify": "^3.0.0",
-    "jquery": "^3.2.1",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
     "mongoose": "^5.0.1",
@@ -41,19 +41,15 @@
     "nightmare": "^2.10.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0"
-  },
-  "devDependencies": {
-    "eslint-config-google": "^0.9.1",
-    "gulp-concat-js": "^0.1.0",
+    "passport-local": "^1.0.0",
     "gulp-env": "^0.4.0",
     "gulp-eslint": "^4.0.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-mocha": "^4.3.1",
-    "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "node-notifier": "^5.1.2",
     "should": "^11.2.1",
-    "sinon": "^2.3.6"
+    "sinon": "^2.3.6",
+    "eslint-config-google": "^0.9.1"
   }
 }
