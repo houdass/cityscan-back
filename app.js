@@ -1,33 +1,31 @@
 // Importing Node modules and initializing Express
 const compression = require('compression');
-const express = require('express');
+import express from 'express';
 const app = express();
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const config = require('./config/main');
+const CONFIG = require('./config/main');
 const authRouter = require('./routers/auth.router')();
 const userRouter = require('./routers/user.router')();
 const roleRouter = require('./routers/role.router')();
 const permissionRouter = require('./routers/permission.router')();
 
 // Database Connection
-mongoose.connect(config.database);
+mongoose.connect(CONFIG.MONGODB_URI);
 
 if (process.env.ENV === 'test') {
   // TODO
 } else {
   // Database Connection
-  mongoose.connect(process.env.MONGODB_URI || config.database);
+  mongoose.connect(process.env.MONGODB_URI || CONFIG.MONGODB_URI);
 
   // Start the server
-  app.listen(process.env.PORT || config.port);
+  app.listen(process.env.PORT || CONFIG.PORT);
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// console.log(`Your server is running on port ${config.port}.`);
 
 // Setting up basic middleware for all Express requests
 app.use(logger('dev')); // Log requests to API using morgan
@@ -36,10 +34,10 @@ app.use(compression());
 
 // Enable CORS from client-side
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', config.cors.origin);
-  res.header('Access-Control-Allow-Methods', config.cors.methods);
-  res.header('Access-Control-Allow-Headers', config.cors.headers);
-  res.header('Access-Control-Allow-Credentials', config.cors.credentials);
+  res.header('Access-Control-Allow-Origin', CONFIG.CORS.origin);
+  res.header('Access-Control-Allow-Methods', CONFIG.CORS.methods);
+  res.header('Access-Control-Allow-Headers', CONFIG.CORS.headers);
+  res.header('Access-Control-Allow-Credentials', CONFIG.CORS.credentials);
   next();
 });
 

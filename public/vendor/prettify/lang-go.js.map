@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-go.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,kBAAkB,KAAK,aAAkB,MAAM,qFAAqF,KAAK,UAAU,MAAM,uCAAuC,MAAM,qCAAqC","file":"lang-go.js"}

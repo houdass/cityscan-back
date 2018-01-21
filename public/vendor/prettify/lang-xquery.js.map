@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-xquery.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,UAAU,qBAAqB,KAAK,QAAQ,MAAM,oBAAoB,MAAM,cAAc,MAAM,qCAAqC,MAAM,oBAAoB,MAAM,yBAAyB,MAAM,2EAA2E,KAAK,QAAQ,MAAM,4jBAC/U,MAAM,mSAAmS,OAAO,UAAU,09qBAC1T,MAAM,uBAAuB,MAAM,sBAAsB,KAAK","file":"lang-xquery.js"}

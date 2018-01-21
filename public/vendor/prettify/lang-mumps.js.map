@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-mumps.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,kBAAkB,KAAK,aAAkB,MAAM,uBAAuB,KAAK,QAAQ,MAAM,aAAa,KAAK,MAAM,MAAM,2WAC3K,OAAO,MAAM,sNAAsN,OAAO,MAAM,sDAAsD,MAAM,wBAAwB,MAAM,iCAAiC","file":"lang-mumps.js"}

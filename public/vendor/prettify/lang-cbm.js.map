@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-cbm.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,mCAAmC,KAAK,MAAM,MAAM,OAAO,KAAK,eAAoB,MAAM,eAAe,OAAO,MAAM,mMAAmM,OAAO,MAAM,4BAA4B,OAAO,MAAM,2CACna,KAAK,eAAe,MAAM,kBAAkB,SAAS,QAAQ","file":"lang-cbm.js"}

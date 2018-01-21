@@ -1,11 +1,10 @@
 require('../config/passport');
-
 const roleController = require('../controllers/role.controller')();
 const authController = require('../controllers/auth.controller')();
-const ROLES = require('../constants').ROLES;
-const PERMISSIONS = require('../constants').PERMISSIONS;
-const express = require('express');
-const passport = require('passport');
+import { ROLES } from '../constants';
+import { PERMISSIONS } from '../constants';
+import express from 'express';
+import passport from 'passport';
 
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });

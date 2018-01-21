@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-apollo.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,aAAa,KAAK,MAAM,MAAM,kBAAkB,KAAK,aAAkB,MAAM,mCAAmC,KAAK,QAAQ,MAAM,yYACvL,OAAO,MAAM,4NAA4N,OAAO,MAAM,iEAAiE,MAAM,+DAA+D,MAAM,kCAAkC,SAAS,MAAM","file":"lang-apollo.js"}

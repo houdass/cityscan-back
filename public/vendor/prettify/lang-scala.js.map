@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-scala.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,kBAAkB,KAAK,aAAkB,MAAM,uEAAuE,KAAK,MAAM,MAAM,0BAA0B,KAAK,MAAM,MAAM,oCAAoC,KAAK,iCAAiC,MAAM,wCAAwC,MAAM,iCAAiC,MAAM,0OAC1Y,MAAM,gCAAgC,MAAM,mIAAmI,MAAM,sCAAsC,MAAM,sBAAsB,MAAM,8CAA8C,MAAM,kBAAkB","file":"lang-scala.js"}

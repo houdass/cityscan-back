@@ -1,9 +1,9 @@
 require('crypto');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-const config = require('../config/main');
-const util = require('../services/util.service');
-const _ = require('lodash');
+import jwt from 'jsonwebtoken';
+import User from '../models/user';
+import CONFIG from '../config/main';
+import { setUserInfo } from '../services/util.service';
+import { intersection } from 'lodash';
 
 /**
  * Generate token.
@@ -12,7 +12,7 @@ const _ = require('lodash');
  * @return {Object} - token.
  */
 function generateToken(user) {
-  return jwt.sign(user, config.secret, {
+  return jwt.sign(user, CONFIG.SECRET, {
     expiresIn: 3600 // in seconds
   });
 }
@@ -38,7 +38,7 @@ const authController = () => {
         return next(err);
       }
       // Respond with JWT if user was created
-      const userInfo = util.setUserInfo(req.user);
+      const userInfo = setUserInfo(req.user);
       res.status(200).json({
         token: `JWT  ${generateToken(userInfo)}`,
         user: userInfo
@@ -105,7 +105,7 @@ const authController = () => {
             return next(err);
           }
           // Respond with JWT if user was created
-          const userInfo = util.setUserInfo(user);
+          const userInfo = setUserInfo(user);
           res.status(201).json({
             token: `JWT  ${generateToken(userInfo)}`,
             user: userInfo
@@ -132,7 +132,7 @@ const authController = () => {
 
         const foundPermissions = foundUser.role.permissions.map((permission) => permission.label);
         if ((roles.indexOf(foundUser.role.label) > -1)
-          || (_.intersection(permissions,
+          || (intersection(permissions,
             foundPermissions).length > 0)) {
           return next();
         }

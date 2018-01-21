@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-vbs.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,8BAA8B,KAAK,yBAA8B,MAAM,0KAA0K,KAAK,QAAkB,MAAM,+DAA+D,KAAK,UAAoB,MAAM,m7BACha,OAAO,MAAM,gCAAgC,MAAM,2OAA2O,MAAM,iEAAiE,MAAM,mEAAmE,MAAM,iBAAiB,KACrc","file":"lang-vbs.js"}

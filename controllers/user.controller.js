@@ -1,8 +1,8 @@
-const User = require('../models/user');
-const util = require('../services/util.service');
-const Nightmare = require('nightmare');
+import User from '../models/user';
+import { setUserInfo } from '../services/util.service';
+import Nightmare from 'nightmare';
 const nightmare = new Nightmare({ show: true });
-const $ = require('jquery');
+import $ from 'jquery';
 
 const populateRoleAndPermissions = {
   path: 'role',
@@ -27,7 +27,7 @@ const userController = () => {
           if (err) {
             res.status(500).send(err);
           } else {
-            res.json(util.setUserInfo(user));
+            res.json(setUserInfo(user));
           }
         });
       }
@@ -36,7 +36,7 @@ const userController = () => {
 
   // Find User
   const find = (req, res) => {
-    res.json(util.setUserInfo(req.user));
+    res.json(setUserInfo(req.user));
   };
 
   // Find User
@@ -47,7 +47,7 @@ const userController = () => {
       if (err) {
         res.status(500).send(err);
       } else {
-        const usersInfo = users.map((user) => util.setUserInfo(user));
+        const usersInfo = users.map((user) => setUserInfo(user));
         res.json(usersInfo);
       }
     });

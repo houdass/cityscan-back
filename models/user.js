@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import bcrypt from 'bcrypt-nodejs';
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt-nodejs');
 
 // ================================
 // User Schema

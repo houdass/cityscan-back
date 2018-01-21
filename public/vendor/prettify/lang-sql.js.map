@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-sql.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,kBAAkB,KAAK,aAAkB,MAAM,6CAA6C,KAAK,UAAU,MAAM,2CAA2C,MAAM,i5CACtN,OAAO,MAAM,qEAAqE,MAAM,mBAAmB,MAAM,oDAAoD","file":"lang-sql.js"}

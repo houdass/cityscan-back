@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const ROLES = require('../constants').ROLES;
+import { ROLES } from '../constants';
 
 const RoleSchema = new Schema({
   label: {

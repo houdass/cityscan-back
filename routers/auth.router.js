@@ -1,8 +1,7 @@
 require('../config/passport');
-
 const authController = require('../controllers/auth.controller')();
-const express = require('express');
-const passport = require('passport');
+import express from 'express';
+import passport from 'passport';
 
 // Middleware to require login/auth
 const requireLogin = passport.authenticate('local', { session: false });

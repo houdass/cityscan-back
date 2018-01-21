@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-Splus.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,kBAAkB,KAAK,aAAkB,MAAM,mCAAmC,KAAK,MAAM,MAAM,mCAAmC,KAAK,QAAQ,MAAM,SAAS,MAAM,wFAAwF,MAAM,yCAAyC,MAAM,8DAA8D,MAAM,gHAC5a,MAAM,iGAAiG,MAAM,6EAA6E,MAAM,YAAY,IAAI,IAAI,IAAI,IAAI","file":"lang-Splus.js"}

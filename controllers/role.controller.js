@@ -1,4 +1,4 @@
-const Role = require('../models/role');
+import Role from '../models/role';
 
 const roleController = () => {
   // Add Role

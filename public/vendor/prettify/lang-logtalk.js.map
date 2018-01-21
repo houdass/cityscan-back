@@ -1,1 +1,0 @@
-{"version":3,"sources":["lang-logtalk.js"],"names":["PR","registerLangHandler","createSimpleLexer"],"mappings":"AAgBAA,GAAGC,oBAAoBD,GAAGE,oBAAoB,MAAM,2CAA2C,KAAK,MAAM,MAAM,wBAAwB,MAAM,oCAAoC,KAAK,MAAM,MAAM,sEAAsE,KAAK,iBAAiB,MAAM,aAAa,KAAK,MAAM,MAAM,sBAAsB,MAAM,4SAC9V,MAAM,+FAA+F,MAAM,yBAAyB,MAAM,6BAA6B,UAAU","file":"lang-logtalk.js"}
