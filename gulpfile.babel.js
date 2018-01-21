@@ -23,7 +23,7 @@ gulp.task('dev', ['apidoc', 'eslint', 'babel', 'watch'], () => {
   });
 });
 
-gulp.task('prod', ['build', 'apidoc'], (cb) => {
+gulp.task('prod', ['uglify', 'apidoc'], (cb) => {
   log('*** PROD ENV ***');
   exec('node ./dist/app.js', (err, stdout, stderr) => {
     log(stdout);
@@ -114,6 +114,7 @@ gulp.task('watch', () => {
   gulp.watch(files, ['eslint', 'babel']);
 });
 
+// TODO : delete this task
 gulp.task('build', ['uglify'], () => gulp.src(files.map((file) => `dist/${file}`))
   .pipe($.sourcemaps.init())
   .pipe($.concatJs({

@@ -1,1 +1,0 @@
-"use strict";var setUserInfo=function(e){return{_id:e._id,updatedAt:e.updatedAt,createdAt:e.createdAt,firstName:e.firstName,lastName:e.lastName,email:e.email,role:e.role}};module.exports={setUserInfo:setUserInfo};
