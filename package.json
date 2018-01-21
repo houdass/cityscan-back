@@ -5,7 +5,7 @@
   "description": "City scanner",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "gulp prod",
     "dev": "gulp dev",
     "prod": "gulp prod",
     "test": "gulp test",
