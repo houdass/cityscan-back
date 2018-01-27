@@ -47,8 +47,8 @@ app.use('/api', apiRoutes);
 
 // Set auth routers as subgroup/middleware to other routers
 apiRoutes.use('/auth', authRouter);
-apiRoutes.use('/user', userRouter);
-apiRoutes.use('/role', roleRouter);
-apiRoutes.use('/permission', permissionRouter);
+apiRoutes.use('/users', userRouter);
+apiRoutes.use('/roles', roleRouter);
+apiRoutes.use('/permissions', permissionRouter);
 
 app.use(express.static('public'));
