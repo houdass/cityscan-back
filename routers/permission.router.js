@@ -14,7 +14,7 @@ module.exports = () => {
   permissionRouter.use(requireAuth, authController.hasAuthorization(ROLES.ADMIN));
 
   /**
-   * @api {post} permission/ Add permission
+   * @api {post} permissions/ Add permission
    * @apiName addPermission
    * @apiGroup Permission
    * @apiParamExample  {json} Raw data example
@@ -32,7 +32,7 @@ module.exports = () => {
   permissionRouter.post('/', permissionController.add);
 
   /**
-   * @api {get} permission/ Find all permissions
+   * @api {get} permissions/ Find all permissions
    * @apiName findPermissions
    * @apiGroup Permission
    * @apiSuccessExample {json} Success
@@ -53,7 +53,7 @@ module.exports = () => {
   permissionRouter.use('/:id', permissionController.middleware);
 
   /**
-   * @api {get} permission/:id Find permission
+   * @api {get} permissions/:id Find permission
    * @apiName findPermission
    * @apiGroup Permission
    * @apiParam {String} id Permission id
@@ -67,7 +67,7 @@ module.exports = () => {
   permissionRouter.get('/:id', permissionController.find);
 
   /**
-   * @api {put} permission/:id Edit permission
+   * @api {put} permissions/:id Edit permission
    * @apiName editPermission
    * @apiGroup Permission
    * @apiParam {String} id Permission id
@@ -84,7 +84,7 @@ module.exports = () => {
   permissionRouter.put('/:id', permissionController.edit);
 
   /**
-   * @api {delete} permission/:id Remove permission
+   * @api {delete} permissions/:id Remove permission
    * @apiName removePermission
    * @apiGroup Permission
    * @apiParam {String} id Permission id

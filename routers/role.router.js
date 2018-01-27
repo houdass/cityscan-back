@@ -15,7 +15,7 @@ module.exports = () => {
   roleRouter.use(requireAuth, authController.hasAuthorization(ROLES.ADMIN, PERMISSIONS.READ_USERS));
 
   /**
-   * @api {post} role/ Add role
+   * @api {post} roles/ Add role
    * @apiName addRole
    * @apiGroup Role
    * @apiParamExample  {json} Raw data example
@@ -48,7 +48,7 @@ module.exports = () => {
   roleRouter.post('/', roleController.add);
 
   /**
-   * @api {get} role/ Find all roles
+   * @api {get} roles/ Find all roles
    * @apiName findRoles
    * @apiGroup Role
    * @apiSuccessExample {json} Success
@@ -82,7 +82,7 @@ module.exports = () => {
   roleRouter.use('/:id', roleController.middleware);
 
   /**
-   * @api {get} role/:id Find role
+   * @api {get} roles/:id Find role
    * @apiName findRole
    * @apiGroup Role
    * @apiParam {String} id Role id
@@ -106,7 +106,7 @@ module.exports = () => {
   roleRouter.get('/:id', roleController.find);
 
   /**
-   * @api {put} role/:id Edit role
+   * @api {put} roles/:id Edit role
    * @apiName editRole
    * @apiGroup Role
    * @apiParam {String} id Role id
@@ -131,7 +131,7 @@ module.exports = () => {
   roleRouter.put('/:id', roleController.edit);
 
   /**
-   * @api {delete} role/:id Remove role
+   * @api {delete} roles/:id Remove role
    * @apiName removeRole
    * @apiGroup Role
    * @apiParam {String} id Role id
