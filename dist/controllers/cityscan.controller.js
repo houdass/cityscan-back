@@ -49,7 +49,7 @@ var cityscanController = function cityscanController() {
             return a + b;
           }, 0) / result.length;
 
-          res.status(201).json(JSON.parse({ jsonObj: jsonObj, total: total }));
+          res.status(201).json(JSON.parse(jsonObj));
         }
       }
     });

@@ -36,7 +36,7 @@ const cityscanController = () => {
             const prices = result.map((item) => Number(item.prix));
             const total = prices.reduce((a, b) => (a) + (b), 0) / result.length;
 
-            res.status(201).json(JSON.parse({ jsonObj, total }));
+            res.status(201).json(JSON.parse(jsonObj));
           }
         }
       });
