@@ -10,6 +10,7 @@ const authRouter = require('./routers/auth.router')();
 const userRouter = require('./routers/user.router')();
 const roleRouter = require('./routers/role.router')();
 const permissionRouter = require('./routers/permission.router')();
+const cityScanRouter = require('./routers/cityscan.router')();
 
 // Database Connection
 mongoose.connect(CONFIG.MONGODB_URI);
@@ -50,5 +51,6 @@ apiRoutes.use('/auth', authRouter);
 apiRoutes.use('/users', userRouter);
 apiRoutes.use('/roles', roleRouter);
 apiRoutes.use('/permissions', permissionRouter);
+apiRoutes.use('/cityscan', cityScanRouter);
 
 app.use(express.static('public'));

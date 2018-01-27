@@ -81,7 +81,7 @@ module.exports = function () {
   userRouter.use('/:id', userController.middleware);
 
   /**
-   * @api {get} user/:id Find user
+   * @api {get} users/:id Find user
    * @apiName findUser
    * @apiGroup User
    * @apiParam {String} id User id
@@ -113,7 +113,7 @@ module.exports = function () {
   userRouter.get('/:id', userController.find);
 
   /**
-   * @api {put} user/:id Edit user
+   * @api {put} users/:id Edit user
    * @apiName editUser
    * @apiGroup User
    * @apiParam {String} id User id
@@ -152,7 +152,7 @@ module.exports = function () {
   userRouter.put('/:id', userController.edit);
 
   /**
-   * @api {delete} user/:id Remove user
+   * @api {delete} users/:id Remove user
    * @apiName removeUser
    * @apiGroup User
    * @apiParam {String} id User id

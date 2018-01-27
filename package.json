@@ -22,6 +22,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "browser-sync": "^2.18.12",
+    "cheerio": "^1.0.0-rc.2",
     "compression": "^1.7.1",
     "crypto": "0.0.3",
     "eslint": "^4.16.0",
@@ -49,6 +50,7 @@
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
+    "request": "^2.83.0",
     "should": "^11.2.1",
     "sinon": "^2.3.6"
   }
