@@ -4,7 +4,7 @@ import cheerio from 'cheerio';
 const cityscanController = () => {
   // Get Addresses
   const getAddresses = (req, res) => {
-    const text = req.query.text;
+    const text = req.query.city;
     request
     .get({
       url: `http://autocomplete.svc.groupe-seloger.com/auto/complete/0/ALL/6?text=${text}`,
@@ -78,8 +78,8 @@ const cityscanController = () => {
             });
 
             const prices = result.map((item) => Number(item.prix));
-            const totalPrice = prices.reduce((a, b) => (a) + (b), 0) / result.length;
-            res.status(201).json({ products, totalPrice });
+            const avgPrice = prices.reduce((a, b) => (a) + (b), 0) / result.length;
+            res.status(201).json({ products, avgPrice });
           }
         }
       });

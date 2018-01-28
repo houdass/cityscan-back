@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var cityscanController = function cityscanController() {
   // Get Addresses
   var getAddresses = function getAddresses(req, res) {
-    var text = req.query.text;
+    var text = req.query.city;
     _request2.default.get({
       url: 'http://autocomplete.svc.groupe-seloger.com/auto/complete/0/ALL/6?text=' + text,
       json: true
@@ -83,10 +83,10 @@ var cityscanController = function cityscanController() {
           var prices = result.map(function (item) {
             return Number(item.prix);
           });
-          var total = prices.reduce(function (a, b) {
+          var avgPrice = prices.reduce(function (a, b) {
             return a + b;
           }, 0) / result.length;
-          res.status(201).json({ products: products, total: total });
+          res.status(201).json({ products: products, avgPrice: avgPrice });
         }
       }
     });
