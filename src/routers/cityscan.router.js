@@ -62,7 +62,7 @@ module.exports = () => {
    *     }
    * ]
    */
-  cityscanRouter.get('/', cityscanController.getAddresses);
+  cityscanRouter.get('/places', cityscanController.getAddresses);
 
   /**
    * @api {get} cityScan/ Analyze
