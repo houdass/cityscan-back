@@ -19,14 +19,9 @@ gulp.task('dev', ['apidoc', 'babel', 'watch'], (cb) => {
     env: {
       PORT: CONFIG.PORT
     },
-    ignore: ['./node_modules/**', 'public/', 'src/'],
+    ignore: ['./node_modules/**', 'public/'],
     watch: ['build/app.js']
-  }).on('start', () => {
-    if (!started) {
-      cb();
-      started = true;
-    }
-  });
+  })
 });
 
 gulp.task('prod', ['uglify', 'apidoc'], (cb) => {

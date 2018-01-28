@@ -59,9 +59,27 @@ const cityscanController = () => {
             jsonObj = text.substring(0, text.length - 1);
             const result = JSON.parse(jsonObj).products;
 
+            const products = result.map((product) => {
+              const item = {};
+              item.price = product.prix;
+              item.size = product.surface;
+              item.zipcode = product.codepostal;
+              item.productType = product.typedebien;
+              item.transactionType = product.typedetransaction;
+              item.heatingType = product.idtypechauffage;
+              item.kitchenType = product.idtypecuisine;
+              item.hasBalcony = !!product.si_balcon;
+              item.nbBedrooms = product.nb_chambres;
+              item.nbRooms = product.nb_pieces;
+              item.hasBathroom = !!product.si_sdEau;
+              item.hasShoweroom = !!product.si_sdbain;
+              item.floor = !!product.etage;
+              return item;
+            });
+
             const prices = result.map((item) => Number(item.prix));
-            const total = prices.reduce((a, b) => (a) + (b), 0) / result.length;
-            res.status(201).json({ prices, total });
+            const totalPrice = prices.reduce((a, b) => (a) + (b), 0) / result.length;
+            res.status(201).json({ products, totalPrice });
           }
         }
       });

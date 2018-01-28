@@ -62,13 +62,31 @@ var cityscanController = function cityscanController() {
           jsonObj = text.substring(0, text.length - 1);
           var result = JSON.parse(jsonObj).products;
 
+          var products = result.map(function (product) {
+            var item = {};
+            item.price = product.prix;
+            item.size = product.surface;
+            item.zipcode = product.codepostal;
+            item.productType = product.typedebien;
+            item.transactionType = product.typedetransaction;
+            item.heatingType = product.idtypechauffage;
+            item.kitchenType = product.idtypecuisine;
+            item.hasBalcony = !!product.si_balcon;
+            item.nbBedrooms = product.nb_chambres;
+            item.nbRooms = product.nb_pieces;
+            item.hasBathroom = !!product.si_sdEau;
+            item.hasShoweroom = !!product.si_sdbain;
+            item.floor = !!product.etage;
+            return item;
+          });
+
           var prices = result.map(function (item) {
             return Number(item.prix);
           });
           var total = prices.reduce(function (a, b) {
             return a + b;
           }, 0) / result.length;
-          res.status(201).json({ prices: prices, total: total });
+          res.status(201).json({ products: products, total: total });
         }
       }
     });
