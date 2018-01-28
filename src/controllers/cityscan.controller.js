@@ -2,8 +2,8 @@ import request from 'request';
 import cheerio from 'cheerio';
 
 const cityscanController = () => {
-  // Get Addresses
-  const getAddresses = (req, res) => {
+  // Get Places
+  const getPlaces = (req, res) => {
     const text = req.query.city;
     request
     .get({
@@ -86,7 +86,7 @@ const cityscanController = () => {
   };
 
   return {
-    getAddresses,
+    getPlaces,
     analyze
   };
 };
