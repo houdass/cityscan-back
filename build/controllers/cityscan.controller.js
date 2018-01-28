@@ -11,8 +11,8 @@ var _cheerio2 = _interopRequireDefault(_cheerio);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var cityscanController = function cityscanController() {
-  // Get Addresses
-  var getAddresses = function getAddresses(req, res) {
+  // Get Places
+  var getPlaces = function getPlaces(req, res) {
     var text = req.query.city;
     _request2.default.get({
       url: 'http://autocomplete.svc.groupe-seloger.com/auto/complete/0/ALL/6?text=' + text,
@@ -93,7 +93,7 @@ var cityscanController = function cityscanController() {
   };
 
   return {
-    getAddresses: getAddresses,
+    getPlaces: getPlaces,
     analyze: analyze
   };
 };

@@ -26,7 +26,7 @@ module.exports = function () {
   cityscanRouter.use(requireAuth, authController.hasAuthorization(_constants.ROLES.ADMIN));
 
   /**
-   * @api {get} cityscan/ Get Addresses
+   * @api {get} cityscan/ Get Places
    * @apiName getAddresses
    * @apiGroup CityScan
    * @apiSuccessExample {json} Success
@@ -74,7 +74,7 @@ module.exports = function () {
    *     }
    * ]
    */
-  cityscanRouter.get('/places', cityscanController.getAddresses);
+  cityscanRouter.get('/places', cityscanController.getPlaces);
 
   /**
    * @api {get} cityScan/ Analyze
