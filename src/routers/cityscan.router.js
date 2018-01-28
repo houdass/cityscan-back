@@ -6,7 +6,7 @@ import passport from 'passport';
 import { ROLES } from '../constants';
 
 // Middleware to require login/auth
-const requireAuth = passport.authenticate('jwt', {session: false});
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 module.exports = () => {
   const cityscanRouter = new express.Router();

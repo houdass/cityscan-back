@@ -1,35 +1,56 @@
 import gulp from 'gulp';
 
 import { exec } from 'child_process';
-import CONFIG from './config/main';
+import CONFIG from './src/config/main';
 
 const browserSync = require('browser-sync').create();
 const $ = require('gulp-load-plugins')({ lazy: true });
 
-const files = ['config/*.js', 'constants.js', 'models/*.js', 'services/*.js',
-  'controllers/*.js', 'routers/*.js', 'app.js'];
+/* const files = ['config/*.js', 'constants.js', 'models/*.js', 'services/*.js',
+  'controllers/*.js', 'routers/*.js', 'app.js']; */
+const files = ['./src/**/*.js'];
 
-gulp.task('dev', ['apidoc', 'eslint', 'babel', 'watch'], () => {
+gulp.task('dev', ['apidoc', 'babel', 'watch'], (cb) => {
   log('*** DEV ENV ***');
-  $.nodemon({
-    script: './dist/app.js',
+  let started = false;
+  return $.nodemon({
+    script: './build/app.js',
     ext: 'js',
     env: {
       PORT: CONFIG.PORT
     },
-    ignore: ['./node_modules/**']
+    ignore: ['./node_modules/**', 'public/']
   }).on('start', () => {
-    startBrowserSync();
+    console.log('111111111111111');
+    if (!started) {
+      cb();
+      console.log('22222222222');
+      started = true;
+    }
   });
 });
 
 gulp.task('prod', ['uglify', 'apidoc'], (cb) => {
   log('*** PROD ENV ***');
-  exec('node ./dist/app.js', (err, stdout, stderr) => {
+  exec('node ./build/app.js', (err, stdout, stderr) => {
     log(stdout);
     log(stderr);
     cb(err);
   });
+});
+
+gulp.task('babel', ['eslint'], () => gulp.src(files, { base: './src' })
+.pipe($.babel())
+.pipe(gulp.dest('build')));
+
+gulp.task('uglify', ['babel'], () => gulp.src(files.map((file) => `build/${file}`), { base: './build' })
+.pipe($.uglify())
+.pipe(gulp.dest('build')));
+
+gulp.task('watch', () => {
+  // gulp.watch(['**/*.spec.js', '**/*.int.js'], ['test']);
+  gulp.watch('./src/routers/**/*.js', ['apidoc']);
+  gulp.watch(files, ['eslint', 'babel']);
 });
 
 gulp.task('test', () => {
@@ -42,6 +63,7 @@ gulp.task('test', () => {
 gulp.task('apidoc', (cb) => {
   log('*** GENERATE APIDOC ***');
   exec('npm run apidoc', (err, stdout, stderr) => {
+    startBrowserSync();
     log(stdout);
     log(stderr);
     cb(err);
@@ -99,32 +121,16 @@ function startBrowserSync() {
   });
 }
 
-gulp.task('babel', () => gulp.src(files, { base: '.' })
-.pipe($.babel())
-// .pipe($.uglify())
-.pipe(gulp.dest('dist')));
-
-gulp.task('uglify', ['babel'], () => gulp.src(files.map((file) => `dist/${file}`), { base: './dist' })
-.pipe($.uglify())
-.pipe(gulp.dest('dist')));
-
-gulp.task('watch', () => {
-  // gulp.watch(['**/*.spec.js', '**/*.int.js'], ['test']);
-  gulp.watch(['./routers/**/*.js'], ['apidoc']);
-  gulp.watch(files, ['eslint', 'babel']);
-});
-
 // TODO : delete this task
-gulp.task('build', ['uglify'], () => gulp.src(files.map((file) => `dist/${file}`))
+gulp.task('build', ['uglify'], () => gulp.src(files.map((file) => `build/${file}`))
   .pipe($.sourcemaps.init())
   .pipe($.concatJs({
     target: 'build.js', // Name to concatenate to
-    entry: './dist/app.js' // Entrypoint for the application, main module
+    entry: './build/app.js' // Entrypoint for the application, main module
                          // The `./` part is important! The path is relative to
                          // whatever gulp decides is the base-path, in this
                          // example that is `./lib`
   }))
   .pipe($.sourcemaps.write())
   .pipe($.uglify())
-  .pipe(gulp.dest('./dist')));
-
+  .pipe(gulp.dest('./build')));

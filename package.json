@@ -8,7 +8,7 @@
     "dev": "gulp dev",
     "prod": "gulp prod",
     "test": "gulp test",
-    "apidoc": "apidoc -i routers/ -o public/"
+    "apidoc": "apidoc -i src/routers/ -o public/"
   },
   "keywords": [],
   "license": "ISC",
