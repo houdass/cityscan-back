@@ -19,12 +19,11 @@ gulp.task('dev', ['apidoc', 'babel', 'watch'], (cb) => {
     env: {
       PORT: CONFIG.PORT
     },
-    ignore: ['./node_modules/**', 'public/']
+    ignore: ['./node_modules/**', 'public/', 'src/'],
+    watch: ['build/app.js']
   }).on('start', () => {
-    console.log('111111111111111');
     if (!started) {
       cb();
-      console.log('22222222222');
       started = true;
     }
   });
