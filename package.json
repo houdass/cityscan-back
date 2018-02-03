@@ -5,8 +5,8 @@
   "description": "City scanner",
   "main": "app.js",
   "scripts": {
-    "dev": "gulp dev",
-    "prod": "gulp prod",
+    "dev": "NODE_ENV=DEV gulp dev",
+    "prod": "NODE_ENV=PROD gulp prod",
     "test": "gulp test",
     "apidoc": "apidoc -i src/routers/ -o public/"
   },
@@ -41,12 +41,10 @@
     "gulp-sourcemaps": "^2.6.3",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "jquery": "^3.3.1",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
     "mongoose": "^5.0.1",
     "morgan": "^1.8.2",
-    "nightmare": "^2.10.0",
     "node-notifier": "^5.1.2",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",

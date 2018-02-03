@@ -1,4 +1,4 @@
-require('../config/passport');
+require('../config/passport.config');
 const roleController = require('../controllers/role.controller')();
 const authController = require('../controllers/auth.controller')();
 import { ROLES } from '../constants';

@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-const CONFIG = require('./config/main');
+const MAIN_CONFIG = require('./config/main.config');
 const authRouter = require('./routers/auth.router')();
 const userRouter = require('./routers/user.router')();
 const roleRouter = require('./routers/role.router')();
@@ -14,16 +14,16 @@ const permissionRouter = require('./routers/permission.router')();
 const cityScanRouter = require('./routers/cityscan.router')();
 
 // Database Connection
-mongoose.connect(CONFIG.MONGODB_URI);
+mongoose.connect(MAIN_CONFIG.MONGODB_URI);
 
-if (process.env.ENV === 'test') {
+if (process.env.ENV === 'TEST') {
   // TODO
 } else {
   // Database Connection
-  mongoose.connect(process.env.MONGODB_URI || CONFIG.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI || MAIN_CONFIG.MONGODB_URI);
 
   // Start the server
-  app.listen(process.env.PORT || CONFIG.PORT);
+  app.listen(process.env.PORT || MAIN_CONFIG.PORTS.EXPRESS);
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));

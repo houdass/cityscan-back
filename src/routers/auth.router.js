@@ -1,4 +1,4 @@
-require('../config/passport');
+require('../config/passport.config');
 const authController = require('../controllers/auth.controller')();
 import express from 'express';
 import passport from 'passport';

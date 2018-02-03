@@ -1,8 +1,5 @@
 import User from '../models/user';
 import { setUserInfo } from '../services/util.service';
-import Nightmare from 'nightmare';
-const nightmare = new Nightmare({ show: true });
-import $ from 'jquery';
 
 const populateRoleAndPermissions = {
   path: 'role',
@@ -80,51 +77,13 @@ const userController = () => {
     });
   };
 
-  const scan = () => {
-    nightmare
-    .goto('http://www.seloger.com/')
-    .wait(2000)
-    .type('.jsInlineContainer input[type="text"]', 'paris')
-    .wait(1000)
-    .evaluate(() => {
-      // $('.jsInlineContainer input[type="text"]').val('paris');
-      $('.jsInlineContainer input[type="text"]').focus();
-
-      $('.selectize-dropdown')[0].style.display = 'block';
-      // console.log('1done');
-    })
-    .wait(3000)
-    .evaluate(() => {
-      $('.optionContainer').get(0).click();
-      // console.log('2done');
-    })
-    .wait(1000)
-    .click('.b-btn.b-warn')
-    .wait(3000)
-    .evaluate(() => Array.from($('.c-pa-list')).map((element) => {
-      const el = {};
-      el.price = $(element).find('.c-pa-price').text();
-      return el;
-    }))
-    .end()
-    .then((result) => {
-      result.forEach((element) => {
-        // console.log('=> ', element);
-      });
-    })
-    .catch((error) => {
-      // console.error('Search failed:', error);
-    });
-  };
-
   return {
     add,
     edit,
     find,
     findAll,
     middleware,
-    remove,
-    scan
+    remove
   };
 };
 

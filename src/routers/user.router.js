@@ -1,4 +1,4 @@
-require('../config/passport');
+require('../config/passport.config');
 const userController = require('../controllers/user.controller')();
 const authController = require('../controllers/auth.controller')();
 import express from 'express';
@@ -63,7 +63,6 @@ module.exports = () => {
    * ]
    */
   userRouter.get('/', userController.findAll);
-  userRouter.get('/', userController.scan); // TODO
 
   // Routes with id middleware.
   userRouter.use('/:id', userController.middleware);

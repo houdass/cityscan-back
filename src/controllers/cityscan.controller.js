@@ -17,10 +17,21 @@ const cityscanController = () => {
   };
 
   const analyze = (req, res) => {
-    const zipCode = req.params.zipCode;
-    // http://www.seloger.com/list.htm?tri=initial&idtypebien=2,1&idtt=2&idq=124758&naturebien=1,2,4
-    // http://www.seloger.com/list.htm?tri=initial&idtypebien=2,1&idtt=2&cp=75&naturebien=1,2,4
-    request(`http://www.seloger.com/list.htm?tri=initial&idtypebien=2,1&idtt=2&cp=${zipCode}&naturebien=1,2,4`,
+    let code;
+    let value;
+    // TODO : refacto
+    if (req.query.cp) {
+      code = 'cp';
+      value = req.query.cp;
+    } else if (req.query.ci) {
+      code = 'ci';
+      value = req.query.ci;
+    } else {
+      code = 'idq';
+      value = req.query.idq;
+    }
+    // TODO : refacto query params
+    request(`http://www.seloger.com/list.htm?tri=initial&idtypebien=2,1&idtt=2&${code}=${value}&naturebien=1,2,4`,
       (error, response, html) => {
         /* if (!error && response.statusCode == 200) {
           const $ = cheerio.load(html);
@@ -48,6 +59,7 @@ const cityscanController = () => {
 
           let jsonObj;
 
+          // TODO : refacto find instead of filter
           const scripts = $('script').filter(function() {
             return $(this).html().indexOf('var ava_data = ') > -1;
           });
@@ -77,8 +89,8 @@ const cityscanController = () => {
               return item;
             });
 
-            const prices = result.map((item) => Number(item.prix));
-            const avgPrice = prices.reduce((a, b) => (a) + (b), 0) / result.length;
+            const prices = result.filter((item) => !isNaN(item.prix)).map((item) => Number(item.prix));
+            const avgPrice = prices.reduce((a, b) => (a) + (b), 0) / prices.length;
             res.status(201).json({ products, avgPrice });
           }
         }

@@ -1,7 +1,7 @@
 require('crypto');
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
-import CONFIG from '../config/main';
+import MAIN_CONFIG from '../config/main.config';
 import { setUserInfo } from '../services/util.service';
 import { intersection } from 'lodash';
 
@@ -12,8 +12,9 @@ import { intersection } from 'lodash';
  * @return {Object} - token.
  */
 function generateToken(user) {
-  return jwt.sign(user, CONFIG.SECRET, {
-    expiresIn: 3600 // in seconds
+  return jwt.sign(user, MAIN_CONFIG.SECRET, {
+    expiresIn: MAIN_CONFIG.EXPIRES_IN // in seconds
+    // TODO create constant
   });
 }
 

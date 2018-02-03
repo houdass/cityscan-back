@@ -4,6 +4,7 @@
   "title": "CityScan API Doc",
   "url" : "/api/",
   "template": {
-    "forceLanguage": "en"
+    "forceLanguage": "en",
+    "withCompare" : false
   }
 }

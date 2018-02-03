@@ -1,4 +1,4 @@
-require('../config/passport');
+require('../config/passport.config');
 const cityscanController = require('../controllers/cityscan.controller')();
 const authController = require('../controllers/auth.controller')();
 import express from 'express';
@@ -113,6 +113,6 @@ module.exports = () => {
    *     }
    * ]
    */
-  cityscanRouter.get('/analyze/:zipCode', cityscanController.analyze);
+  cityscanRouter.get('/analyze', cityscanController.analyze);
   return cityscanRouter;
 };
