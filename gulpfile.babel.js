@@ -57,6 +57,7 @@ gulp.task('test', () => {
 gulp.task('apidoc', (cb) => {
   log('*** GENERATE APIDOC ***');
   exec('npm run apidoc', (err, stdout, stderr) => {
+    // TODO only for dev
     startBrowserSync();
     log(stdout);
     log(stderr);

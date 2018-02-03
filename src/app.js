@@ -1,6 +1,7 @@
 // Importing Node modules and initializing Express
 const compression = require('compression');
 import express from 'express';
+const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 const logger = require('morgan');
@@ -34,13 +35,8 @@ app.use(logger('dev')); // Log requests to API using morgan
 app.use(compression());
 
 // Enable CORS from client-side
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', CONFIG.CORS.origin);
-  res.header('Access-Control-Allow-Methods', CONFIG.CORS.methods);
-  res.header('Access-Control-Allow-Headers', CONFIG.CORS.headers);
-  res.header('Access-Control-Allow-Credentials', CONFIG.CORS.credentials);
-  next();
-});
+app.use(cors());
+app.options('*', cors());
 
 const apiRoutes = new express.Router();
 
