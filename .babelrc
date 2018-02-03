@@ -1,4 +1,6 @@
 {
   "presets": ["env"],
-  "plugins": ["syntax-dynamic-import"]
+  "plugins": [
+    "add-module-exports"
+  ]
 }
