@@ -5,6 +5,7 @@
   "url" : "/api/",
   "template": {
     "forceLanguage": "en",
-    "withCompare" : false
+    "withCompare" : false,
+    "withGenerator" : false
   }
 }

@@ -1,5 +1,8 @@
-import request from 'request';
+import request from 'request-promise';
 import cheerio from 'cheerio';
+import { indexOf } from 'lodash';
+
+import { setData, scrap } from '../helpers/seloger.helper';
 
 const cityscanController = () => {
   // Get Places
@@ -17,84 +20,70 @@ const cityscanController = () => {
   };
 
   const analyze = (req, res) => {
-    let code;
-    let value;
+    let qs;
+
     // TODO : refacto
-    if (req.query.cp) {
-      code = 'cp';
-      value = req.query.cp;
-    } else if (req.query.ci) {
-      code = 'ci';
-      value = req.query.ci;
+    if (req.body.cp) {
+      qs = { cp: req.body.cp };
+    } else if (req.body.ci) {
+      qs = { ci: req.body.ci };
     } else {
-      code = 'idq';
-      value = req.query.idq;
+      qs = { idq: req.body.idq };
     }
-    // TODO : refacto query params
-    request(`http://www.seloger.com/list.htm?tri=initial&idtypebien=2,1&idtt=2&${code}=${value}&naturebien=1,2,4`,
-      (error, response, html) => {
-        /* if (!error && response.statusCode == 200) {
-          const $ = cheerio.load(html);
-          res.send($('script'));
-          const script = $('script').toArray().find((script) => $(script).html().indexOf('var ava_data = ') > -1);
-          if (script) {
-            let text = $(script).html();
-            res.status(201).json(text);
-            text = text.split('ar ava_data = ')[1].trim();
-            text = text.split('ava_data.logged ')[0].trim();
-            const jsonObj = text.substring(0, text.length - 1);
+    qs.idtypebien = req.body.productTypeId;
+    const url = 'http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4';
+    request({url, qs}).then((html) => {
+      // =======
+      let until = 0;
+      const $ = cheerio.load(html);
+      let jsonObj;
 
-            // const result = JSON.parse(jsonObj);
+      const paginationBloc2 = $('.pagination-bloc2').text().trim();
+      if (paginationBloc2 === '') {
+        const anchor = $('.pagination-number a[href*="LISTING-LISTpg="]').last();
+        until = anchor.text();
+      } else {
+        const anchor = $('.pagination-bloc2 a[href*="LISTING-LISTpg="]').last();
+        until = anchor.text().replace('+', '');
+      }
 
-            // const prices = result.map((item) => Number(item.prix));
-            // const total = prices.reduce((a, b) => (a) + (b), 0) / result.length;
+      let allData = [];
+      const promises = [];
+      console.log(')))))))', until)
+      if (2 <= until) {
+        for (let i = 2; i <= until; i++) {
+          const url = `http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4&LISTING-LISTpg=${i}`;
+          promises.push(scrap(url, qs));
+        }
+      }
+      Promise.all(promises).then((responses) => {
 
-            res.status(201).json(jsonObj);
-          }
-        } */
+        for (const response of responses) {
+          allData = allData.concat(response.products);
+          console.log(responses.indexOf(response))
+        }
 
+        const script = $('script').toArray().find((script) => $(script).html().indexOf('var ava_data = ') > -1);
+        if (script) {
+          let text = $(script).html();
+          text = text.split('ar ava_data = ')[1].trim();
+          text = text.split('ava_data.logged ')[0].trim();
 
-        if (!error && response.statusCode == 200) {
-          const $ = cheerio.load(html);
+          jsonObj = text.substring(0, text.length - 1);
+          let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
+          jsonObj = jsonObj.replace(regex, ''); // remove all trailing commas
 
-          let jsonObj;
-
-          // TODO : refacto find instead of filter
-          const scripts = $('script').filter(function() {
-            return $(this).html().indexOf('var ava_data = ') > -1;
-          });
-
-          if (scripts.length === 1) {
-            let text = $(scripts[0]).html();
-            text = text.split('ar ava_data = ')[1].trim();
-            text = text.split('ava_data.logged ')[0].trim();
-            jsonObj = text.substring(0, text.length - 1);
-            const result = JSON.parse(jsonObj).products;
-
-            const products = result.map((product) => {
-              const item = {};
-              item.price = product.prix;
-              item.size = product.surface;
-              item.zipcode = product.codepostal;
-              item.productType = product.typedebien;
-              item.transactionType = product.typedetransaction;
-              item.heatingType = product.idtypechauffage;
-              item.kitchenType = product.idtypecuisine;
-              item.hasBalcony = !!product.si_balcon;
-              item.nbBedrooms = product.nb_chambres;
-              item.nbRooms = product.nb_pieces;
-              item.hasBathroom = !!product.si_sdEau;
-              item.hasShoweroom = !!product.si_sdbain;
-              item.floor = !!product.etage;
-              return item;
-            });
-
-            const prices = result.filter((item) => !isNaN(item.prix)).map((item) => Number(item.prix));
-            const avgPrice = prices.reduce((a, b) => (a) + (b), 0) / prices.length;
-            res.status(201).json({ products, avgPrice });
-          }
+          const result = JSON.parse(jsonObj).products;
+          const products = setData(result);
+          allData = allData.concat(products);
+          const prices = allData.filter((item) => item.pricePerSquareMeter && !isNaN(item.pricePerSquareMeter)).map((item) => Number(item.pricePerSquareMeter));
+          const avgPricePerSquareMeter = prices.reduce((a, b) => (a) + (b), 0) / prices.length;
+          const nbResults = allData.length;
+          res.status(201).json({allData, avgPricePerSquareMeter, nbResults});
         }
       });
+
+    });
   };
 
   return {

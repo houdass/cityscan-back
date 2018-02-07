@@ -1,5 +1,5 @@
 import User from '../models/user';
-import { setUserInfo } from '../services/util.service';
+import { setUserInfo } from '../helpers/util.service';
 
 const populateRoleAndPermissions = {
   path: 'role',

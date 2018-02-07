@@ -1,8 +1,8 @@
 require('../config/passport.config');
 const roleController = require('../controllers/role.controller')();
 const authController = require('../controllers/auth.controller')();
-import { ROLES } from '../constants';
-import { PERMISSIONS } from '../constants';
+import ROLES from '../constants/role.constants';
+import PERMISSIONS from '../constants/permission.constants';
 import express from 'express';
 import passport from 'passport';
 

@@ -14,6 +14,7 @@ module.exports = () => {
    * @api {post} auth/register Registration
    * @apiName Register
    * @apiGroup Auth
+   * @apiPermission None
    *
    * @apiParamExample { json } Raw data example
    *
@@ -57,6 +58,8 @@ module.exports = () => {
    * @api {post} auth/login Login
    * @apiName Login
    * @apiGroup Auth
+   * @apiPermission None
+   *
    * @apiParamExample {json} Raw data example
    * {
    *     "email": "youness@gmail.com",

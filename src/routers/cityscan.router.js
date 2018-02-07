@@ -3,7 +3,7 @@ const cityscanController = require('../controllers/cityscan.controller')();
 const authController = require('../controllers/auth.controller')();
 import express from 'express';
 import passport from 'passport';
-import { ROLES } from '../constants';
+import ROLES from '../constants/role.constants';
 
 // Middleware to require login/auth
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -113,6 +113,6 @@ module.exports = () => {
    *     }
    * ]
    */
-  cityscanRouter.get('/analyze', cityscanController.analyze);
+  cityscanRouter.post('/analyze', cityscanController.analyze);
   return cityscanRouter;
 };

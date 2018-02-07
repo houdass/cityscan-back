@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-import { ROLES } from '../constants';
+import ROLES from '../constants/role.constants';
 
 const RoleSchema = new Schema({
   label: {

@@ -1,8 +1,7 @@
-require('crypto');
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import MAIN_CONFIG from '../config/main.config';
-import { setUserInfo } from '../services/util.service';
+import { setUserInfo } from '../helpers/util.service';
 import { intersection } from 'lodash';
 
 /**
