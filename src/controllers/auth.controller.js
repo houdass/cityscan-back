@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import MAIN_CONFIG from '../config/main.config';
-import { setUserInfo } from '../helpers/util.service';
+import { setUserInfo } from '../helpers/util.helper';
 import { intersection } from 'lodash';
 
 /**
