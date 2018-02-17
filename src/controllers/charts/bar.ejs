@@ -1,0 +1,49 @@
+<canvas id="bar"></canvas>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var barElement = document.getElementById('bar');
+        if (barElement) {
+            var data = {
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [
+                    {
+                        label: "My First dataset",
+                        backgroundColor: "rgba(255,99,132,0.2)",
+                        borderColor: "rgba(255,99,132,1)",
+                        borderWidth: 2,
+                        hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                        hoverBorderColor: "rgba(255,99,132,1)",
+                        data: [65, 59, 20, 81, 56, 55, 40],
+                    }
+                ]
+            };
+            var option = {
+                animation: {
+                    duration: 0, // general animation time
+                },
+                hover: {
+                    animationDuration: 0, // duration of animations when hovering an item
+                },
+                responsiveAnimationDuration: 0, // animation duration after a resize
+                scales: {
+                    yAxes: [{
+                        stacked: true,
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,132,0.2)"
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+            new Chart.Bar(barElement, {
+                data: data,
+                options: option
+            });
+        }
+    }, false);
+</script>

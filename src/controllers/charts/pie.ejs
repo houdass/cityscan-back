@@ -1,0 +1,27 @@
+<canvas id="pie"></canvas>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var pieElement = document.getElementById('pie');
+        if (pieElement) {
+            new Chart(pieElement, {
+                type: 'pie',
+                options: {
+                    animation: {
+                        duration: 0, // general animation time
+                    },
+                    hover: {
+                        animationDuration: 0, // duration of animations when hovering an item
+                    },
+                    responsiveAnimationDuration: 0, // animation duration after a resize
+                },
+                data: {
+                    labels: ["Green", "Blue", "Gray", "Purple", "Yellow", "Red", "Black"],
+                    datasets: [{
+                        backgroundColor: <%- JSON.stringify(backgroundColor) %>,
+                        data: [12, 19, 3, 17, 28, 24, 7]
+                    }]
+                }
+            });
+        }
+    }, false);
+</script>

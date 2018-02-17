@@ -1,17 +1,27 @@
 // Importing Node modules and initializing Express
-const compression = require('compression');
+import compression from 'compression';
 import express from 'express';
-const cors = require('cors');
+import cors from 'cors';
 const app = express();
-const bodyParser = require('body-parser');
-const logger = require('morgan');
-const mongoose = require('mongoose');
+import bodyParser from 'body-parser';
+import logger from 'morgan';
+import mongoose from 'mongoose';
+import pdf from 'express-pdf';
+
 const MAIN_CONFIG = require('./config/main.config');
 const authRouter = require('./routers/auth.router')();
 const userRouter = require('./routers/user.router')();
 const roleRouter = require('./routers/role.router')();
 const permissionRouter = require('./routers/permission.router')();
 const cityScanRouter = require('./routers/cityscan.router')();
+import i18n from 'i18n';
+
+i18n.configure({
+  locales: ['fr', 'en', 'de'],
+  directory: `${__dirname}/locales`,
+  objectNotation: true
+});
+app.use(i18n.init);
 
 // Database Connection
 mongoose.connect(MAIN_CONFIG.MONGODB_URI);
@@ -28,6 +38,8 @@ if (process.env.ENV === 'TEST') {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(pdf);
 
 // Setting up basic middleware for all Express requests
 app.use(logger('dev')); // Log requests to API using morgan

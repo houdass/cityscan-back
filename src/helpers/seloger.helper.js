@@ -38,8 +38,8 @@ export const scrap = (url, qs) => request({ url, qs }).then((html) => {
     text = text.split('ava_data.logged ')[0].trim();
 
     jsonObj = text.substring(0, text.length - 1);
-    const regex = /\,(?!\s*?[\{\[\"\'\w])/g;
-    jsonObj = jsonObj.replace(regex, ''); // remove all trailing commas
+    // const regex = /\,(?!\s*?[\{\[\"\'\w])/g;
+    // jsonObj = jsonObj.replace(regex, ''); // remove all trailing commas
     const result = JSON.parse(jsonObj).products;
     const products = setData(result);
     return { products };

@@ -1,0 +1,119 @@
+<canvas id="bubble"></canvas>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var options = {
+            animation: {
+                duration: 0, // general animation time
+            },
+            hover: {
+                animationDuration: 0, // duration of animations when hovering an item
+            },
+            responsiveAnimationDuration: 0, // animation duration after a resize
+            type: 'bubble',
+            data: {
+                datasets: [
+                    {
+                        label: 'John',
+                        data: [
+                            {
+                                x: 3,
+                                y: 7,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: "#2ecc71",
+                        hoverBackgroundColor: "#ff6384"
+                    },
+                    {
+                        label: 'Paul',
+                        data: [
+                            {
+                                x: 6,
+                                y: 2,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: "#3498db",
+                        hoverBackgroundColor: "#ff6384"
+                    },
+                    {
+                        label: 'George',
+                        data: [
+                            {
+                                x: 2,
+                                y: 6,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: "#95a5a6",
+                        hoverBackgroundColor: "#ff6384"
+                    },
+                    {
+                        label: 'Ringo',
+                        data: [
+                            {
+                                x: 5,
+                                y: 3,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: "#9b59b6",
+                        hoverBackgroundColor: "#ff6384"
+                    },
+                    {
+                        label: 'John',
+                        data: [
+                            {
+                                x: 2,
+                                y: 1,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: "#f1c40f",
+                        hoverBackgroundColor: "#ff6384"
+                    },
+                    {
+                        label: 'George',
+                        data: [
+                            {
+                                x: 1,
+                                y: 3,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: "#e74c3c",
+                        hoverBackgroundColor: "#ff6384"
+                    },
+                    {
+                        label: 'Ringo',
+                        data: [
+                            {
+                                x: 1,
+                                y: 1,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: "#34495e",
+                        hoverBackgroundColor: "#ff6384"
+                    },
+                    {
+                        label: 'George',
+                        data: [
+                            {
+                                x: 1,
+                                y: 2,
+                                r: 10
+                            }
+                        ],
+                        backgroundColor: "#34ff5e",
+                        hoverBackgroundColor: "#ff6384"
+                    }
+                ]
+            }
+        }
+        var bubbleElement = document.getElementById('bubble')
+        if (bubbleElement) {
+            new Chart(bubbleElement, options);
+        }
+    }, false);
+</script>

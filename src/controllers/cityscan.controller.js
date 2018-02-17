@@ -1,12 +1,15 @@
 import request from 'request-promise';
 import cheerio from 'cheerio';
-import { indexOf } from 'lodash';
-
+import ejs from 'ejs';
+import fs from 'fs';
+// import i18n from 'i18n';
 import { setData, scrap } from '../helpers/seloger.helper';
 
 const cityscanController = () => {
   // Get Places
   const getPlaces = (req, res) => {
+    /* i18n.setLocale(req.query.city);
+    console.log('=>', i18n.__('common.title')); */
     const text = req.query.city;
     request
     .get({
@@ -32,7 +35,7 @@ const cityscanController = () => {
     }
     qs.idtypebien = req.body.productTypeId;
     const url = 'http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4';
-    request({url, qs}).then((html) => {
+    request({ url, qs }).then((html) => {
       // =======
       let until = 0;
       const $ = cheerio.load(html);
@@ -49,7 +52,6 @@ const cityscanController = () => {
 
       let allData = [];
       const promises = [];
-      console.log(')))))))', until)
       if (2 <= until) {
         for (let i = 2; i <= until; i++) {
           const url = `http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4&LISTING-LISTpg=${i}`;
@@ -60,7 +62,6 @@ const cityscanController = () => {
 
         for (const response of responses) {
           allData = allData.concat(response.products);
-          console.log(responses.indexOf(response))
         }
 
         const script = $('script').toArray().find((script) => $(script).html().indexOf('var ava_data = ') > -1);
@@ -70,8 +71,8 @@ const cityscanController = () => {
           text = text.split('ava_data.logged ')[0].trim();
 
           jsonObj = text.substring(0, text.length - 1);
-          let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
-          jsonObj = jsonObj.replace(regex, ''); // remove all trailing commas
+          // let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
+          // jsonObj = jsonObj.replace(regex, ''); // remove all trailing commas
 
           const result = JSON.parse(jsonObj).products;
           const products = setData(result);
@@ -86,9 +87,53 @@ const cityscanController = () => {
     });
   };
 
+  const pdf = (req, res) => {
+    const backgroundColor = [
+      '#2ecc71',
+      '#3498db',
+      '#95a5a6',
+      '#9b59b6',
+      '#f1c40f',
+      '#e74c3c',
+      '#34495e'
+    ];
+    const chartsVisibilities = {
+      pie: true,
+      bar: true,
+      bubble: true
+    }
+    const compiled = ejs.compile(fs.readFileSync(`${__dirname}/chart.ejs`, 'utf8'));
+
+    const pie = ejs.compile(fs.readFileSync(`${__dirname}/charts/pie.ejs`, 'utf8'));
+    const pieFn = pie({ backgroundColor })
+
+    const bar = ejs.compile(fs.readFileSync(`${__dirname}/charts/bar.ejs`, 'utf8'));
+    const barFn = bar();
+
+    const bubble = ejs.compile(fs.readFileSync(`${__dirname}/charts/bubble.ejs`, 'utf8'));
+    const bubbleFn = bubble();
+
+    const style = ejs.compile(fs.readFileSync(`${__dirname}/charts/style.ejs`, 'utf8'));
+    const styleFn = style();
+
+
+    const html = compiled({ style: styleFn, chartsVisibilities, pie: pieFn, bar: barFn, bubble: bubbleFn });
+
+    res.pdfFromHTML({
+      filename: 'generated.pdf',
+      htmlContent: html,
+      options: {
+        renderDelay: 100,
+        quality: '100',
+        dpi: 300
+      }
+    });
+  };
+
   return {
     getPlaces,
-    analyze
+    analyze,
+    pdf
   };
 };
 
