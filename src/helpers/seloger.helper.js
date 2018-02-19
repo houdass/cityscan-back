@@ -28,7 +28,7 @@ export const setData = (data) => {
 };
 
 // Algo for scraping seloger.
-export const scrap = (url, qs) => tr({ url, qs }).then((html) => {
+export const scrap = (url, qs) => request({ url, qs }).then((html) => {
   const $ = cheerio.load(html);
   let jsonObj;
   const script = $('script').toArray().find((script) => $(script).html().indexOf('var ava_data = ') > -1);

@@ -1,5 +1,4 @@
 import request from 'request-promise';
-import tr from 'tor-request';
 import cheerio from 'cheerio';
 import ejs from 'ejs';
 import fs from 'fs';
@@ -36,7 +35,7 @@ const cityscanController = () => {
     }
     qs.idtypebien = req.body.productTypeId;
     const url = 'http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4';
-    tr({ url, qs }).then((html) => {
+    request({ url, qs }).then((html) => {
       // =======
       let until = 0;
       const $ = cheerio.load(html);
