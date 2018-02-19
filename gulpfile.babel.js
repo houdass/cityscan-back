@@ -8,13 +8,13 @@ import MAIN_CONFIG from './src/config/main.config';
 
 const isDev = process.env.NODE_ENV === MAIN_CONFIG.ENVS.DEV;
 
-gulp.task('dev', ['apidoc', 'babel', 'watch'], () => {
+gulp.task('dev', ['apidoc', 'eslint', 'watch'], () => {
   log(' === DEV ENV ===', 'green');
   return $.nodemon({
-    script: './build/app.js',
+    script: './src/app.js',
     ext: 'js',
     ignore: ['./node_modules/**', 'public/'],
-    watch: ['build/app.js'],
+    watch: ['src/**/*.*'],
     exec: 'babel-node'
   });
 });
@@ -30,10 +30,7 @@ gulp.task('prod', ['uglify', 'apidoc'], (cb) => {
 
 gulp.task('babel', ['eslint', 'ejs', 'i18n'], () => gulp.src(GULP_CONFIG.SRC_FILES, { base: './src' })
 .pipe($.babel())
-// .on('error', console.error.bind(console))
-.on('error', (e) => {
-  log(e);
-})
+// .on('error', (e) => { log(e); })
 .pipe(gulp.dest('build')));
 
 gulp.task('uglify', ['babel'], () => gulp.src(GULP_CONFIG.BUILD_FILES, { base: './build' })
@@ -41,9 +38,9 @@ gulp.task('uglify', ['babel'], () => gulp.src(GULP_CONFIG.BUILD_FILES, { base: '
 .pipe(gulp.dest('build')));
 
 gulp.task('watch', () => {
-  // gulp.watch(['**/*.spec.js', '**/*.int.js'], ['test']);
   gulp.watch(GULP_CONFIG.ROUTES_FILES, ['apidoc']);
-  gulp.watch([GULP_CONFIG.SRC_FILES, GULP_CONFIG.LOCALES_FILES], ['babel']);
+  // gulp.watch(['**/*.spec.js', '**/*.int.js'], ['test']);
+  gulp.watch([GULP_CONFIG.SRC_FILES], ['eslint']);
 });
 
 gulp.task('test', () => {
@@ -105,8 +102,7 @@ function startBrowserSync() {
 
   const msg = {
     title: 'Server Started.',
-    message: 'Rest API is ready!',
-    sound: true
+    message: 'Rest API is ready!'
   };
   notify(msg);
 
@@ -120,7 +116,7 @@ function startBrowserSync() {
 }
 
 // TODO : delete this task
-gulp.task('build', ['uglify'], () => gulp.src(GULP_CONFIG.BUILD_FILES)
+/* gulp.task('build', ['uglify'], () => gulp.src(GULP_CONFIG.BUILD_FILES)
   .pipe($.sourcemaps.init())
   .pipe($.concatJs({
     target: 'build.js', // Name to concatenate to
@@ -131,4 +127,7 @@ gulp.task('build', ['uglify'], () => gulp.src(GULP_CONFIG.BUILD_FILES)
   }))
   .pipe($.sourcemaps.write())
   .pipe($.uglify())
-  .pipe(gulp.dest('./build')));
+  .pipe(gulp.dest('./build'))); */
+
+
+// ./node_modules/.bin/browserify --bare build/app.js > bundle.js

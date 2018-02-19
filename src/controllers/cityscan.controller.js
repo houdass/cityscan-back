@@ -1,4 +1,5 @@
 import request from 'request-promise';
+import tr from 'tor-request';
 import cheerio from 'cheerio';
 import ejs from 'ejs';
 import fs from 'fs';
@@ -35,7 +36,7 @@ const cityscanController = () => {
     }
     qs.idtypebien = req.body.productTypeId;
     const url = 'http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4';
-    request({ url, qs }).then((html) => {
+    tr({ url, qs }).then((html) => {
       // =======
       let until = 0;
       const $ = cheerio.load(html);
@@ -59,7 +60,6 @@ const cityscanController = () => {
         }
       }
       Promise.all(promises).then((responses) => {
-
         for (const response of responses) {
           allData = allData.concat(response.products);
         }
@@ -72,18 +72,19 @@ const cityscanController = () => {
 
           jsonObj = text.substring(0, text.length - 1);
           // let regex = /\,(?!\s*?[\{\[\"\'\w])/g;
-          // jsonObj = jsonObj.replace(regex, ''); // remove all trailing commas
+          const regex = /,(?!\s*?[{["'\w])/g;
+          jsonObj = jsonObj.replace(regex, ''); // remove all trailing commas
 
           const result = JSON.parse(jsonObj).products;
           const products = setData(result);
           allData = allData.concat(products);
-          const prices = allData.filter((item) => item.pricePerSquareMeter && !isNaN(item.pricePerSquareMeter)).map((item) => Number(item.pricePerSquareMeter));
+          const prices = allData.filter((item) => item.pricePerSquareMeter && !isNaN(item.pricePerSquareMeter))
+                                                      .map((item) => Number(item.pricePerSquareMeter));
           const avgPricePerSquareMeter = prices.reduce((a, b) => (a) + (b), 0) / prices.length;
           const nbResults = allData.length;
-          res.status(201).json({allData, avgPricePerSquareMeter, nbResults});
+          res.status(201).json({ allData, avgPricePerSquareMeter, nbResults });
         }
       });
-
     });
   };
 
@@ -101,11 +102,11 @@ const cityscanController = () => {
       pie: true,
       bar: true,
       bubble: true
-    }
+    };
     const compiled = ejs.compile(fs.readFileSync(`${__dirname}/chart.ejs`, 'utf8'));
 
     const pie = ejs.compile(fs.readFileSync(`${__dirname}/charts/pie.ejs`, 'utf8'));
-    const pieFn = pie({ backgroundColor })
+    const pieFn = pie({ backgroundColor });
 
     const bar = ejs.compile(fs.readFileSync(`${__dirname}/charts/bar.ejs`, 'utf8'));
     const barFn = bar();

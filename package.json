@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "NODE_ENV=DEV gulp dev",
     "prod": "NODE_ENV=PROD gulp prod",
+    "debug": "./node_modules/.bin/babel-node $NODE_DEBUG_OPTION ./src/app.js",
     "test": "gulp test",
     "apidoc": "apidoc -i src/routers/ -o public/"
   },
@@ -23,6 +24,8 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "browser-sync": "^2.18.12",
+    "browserify": "^16.1.0",
+    "bundle-js": "^1.0.2",
     "cheerio": "^1.0.0-rc.2",
     "compression": "^1.7.1",
     "cors": "^2.8.4",
@@ -40,7 +43,8 @@
     "gulp-load-plugins": "^1.5.0",
     "gulp-mocha": "^4.3.1",
     "gulp-nodemon": "^2.2.1",
-    "gulp-sourcemaps": "^2.6.3",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-tap": "^1.0.1",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "i18n": "^0.8.3",
@@ -55,6 +59,9 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "should": "^11.2.1",
-    "sinon": "^2.3.6"
+    "sinon": "^2.3.6",
+    "tor-request": "^1.1.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
