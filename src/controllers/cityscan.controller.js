@@ -24,6 +24,9 @@ const cityscanController = () => {
 
   const analyze = (req, res) => {
     let qs;
+    const headers = {
+      'User-Agent': 'request'
+    }
 
     // TODO : refacto
     if (req.body.cp) {
@@ -35,7 +38,7 @@ const cityscanController = () => {
     }
     qs.idtypebien = req.body.productTypeId;
     const url = 'http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4';
-    request({ url, qs }).then((html) => {
+    request({ url, qs, headers }).then((html) => {
       // =======
       let until = 0;
       const $ = cheerio.load(html);
@@ -55,7 +58,7 @@ const cityscanController = () => {
       if (2 <= until) {
         for (let i = 2; i <= until; i++) {
           const url = `http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4&LISTING-LISTpg=${i}`;
-          promises.push(scrap(url, qs));
+          promises.push(scrap(url, qs, headers));
         }
       }
       Promise.all(promises).then((responses) => {
