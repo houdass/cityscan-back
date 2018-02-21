@@ -60,7 +60,6 @@
     "request-promise": "^4.2.2",
     "should": "^11.2.1",
     "sinon": "^2.3.6",
-    "tor-request": "^1.1.0",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   }
