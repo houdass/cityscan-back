@@ -30,7 +30,6 @@ gulp.task('prod', ['uglify', 'apidoc'], (cb) => {
 
 gulp.task('babel', ['eslint', 'ejs', 'i18n'], () => gulp.src(GULP_CONFIG.SRC_FILES, { base: './src' })
 .pipe($.babel())
-// .on('error', (e) => { log(e); })
 .pipe(gulp.dest('build')));
 
 gulp.task('uglify', ['babel'], () => gulp.src(GULP_CONFIG.BUILD_FILES, { base: './build' })

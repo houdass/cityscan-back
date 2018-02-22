@@ -59,8 +59,6 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "should": "^11.2.1",
-    "sinon": "^2.3.6",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "sinon": "^2.3.6"
   }
 }
