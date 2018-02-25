@@ -3,9 +3,8 @@ import cheerio from 'cheerio';
 import ejs from 'ejs';
 import fs from 'fs';
 import userAgentGenerator from 'user-agent-string-generator';
-import { round } from 'lodash';
-
-// import i18n from 'i18n';
+import { round, sortBy } from 'lodash';
+import i18n from 'i18n';
 import { setData, scrap } from '../helpers/seloger.helper';
 
 const cityscanController = () => {
@@ -134,7 +133,6 @@ const cityscanController = () => {
     const style = ejs.compile(fs.readFileSync(`${__dirname}/charts/style.ejs`, 'utf8'));
     const styleFn = style();
 
-
     const html = compiled({ style: styleFn, chartsVisibilities, pie: pieFn, bar: barFn, bubble: bubbleFn });
 
     res.pdfFromHTML({
@@ -148,10 +146,82 @@ const cityscanController = () => {
     });
   };
 
+  const pdfPost = (req, res) => {
+    i18n.setLocale(req.body.lang || 'fr');
+
+    let products = req.body.allData;
+    products = products.map((product) => {
+      product.price = product.price && Number(product.price.toString().replace(/,/g, '.'));
+      product.size = product.size && Number(product.size.toString().replace(/,/g, '.'));
+      return product;
+    });
+    products = sortBy(products, ['size', 'price']);
+    const bubbleData = products.filter((product) => product.size && product.price).map((product) => {
+      const item = {};
+      item.data = [
+        {
+          x: product.size,
+          y: product.price,
+          r: 3
+        }
+      ];
+      item.backgroundColor = '#387ef5';
+      item.hoverBackgroundColor = '#ff6384';
+      return item;
+    });
+
+    console.log(products.map((item) => item.size));
+    console.log(products.map((item) => item.price));
+
+    const bubbleTexts = {
+      text: i18n.__('bubble.text')
+    };
+
+    const backgroundColor = [
+      '#2ecc71',
+      '#3498db',
+      '#95a5a6',
+      '#9b59b6',
+      '#f1c40f',
+      '#e74c3c',
+      '#34495e'
+    ];
+    const chartsVisibilities = {
+      pie: false,
+      bar: false,
+      bubble: true
+    };
+    const compiled = ejs.compile(fs.readFileSync(`${__dirname}/chart.ejs`, 'utf8'));
+
+    const pie = ejs.compile(fs.readFileSync(`${__dirname}/charts/pie.ejs`, 'utf8'));
+    const pieFn = pie({ backgroundColor });
+
+    const bar = ejs.compile(fs.readFileSync(`${__dirname}/charts/bar.ejs`, 'utf8'));
+    const barFn = bar();
+
+    const bubble = ejs.compile(fs.readFileSync(`${__dirname}/charts/bubble.ejs`, 'utf8'));
+    const bubbleFn = bubble({ bubbleData, bubbleTexts });
+
+    const style = ejs.compile(fs.readFileSync(`${__dirname}/charts/style.ejs`, 'utf8'));
+    const styleFn = style();
+
+    const html = compiled({ style: styleFn, chartsVisibilities, pie: pieFn, bar: barFn, bubble: bubbleFn });
+
+    res.pdfFromHTML({
+      filename: 'generated.pdf',
+      htmlContent: html,
+      options: {
+        renderDelay: 1000,
+        quality: '100',
+        dpi: 300
+      }
+    });
+  };
   return {
     getPlaces,
     analyze,
-    pdf
+    pdf,
+    pdfPost
   };
 };
 

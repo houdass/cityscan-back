@@ -116,5 +116,7 @@ module.exports = () => {
   cityscanRouter.post('/analyze', cityscanController.analyze);
 
   cityscanRouter.get('/pdf', cityscanController.pdf);
+
+  cityscanRouter.post('/pdf', cityscanController.pdfPost);
   return cityscanRouter;
 };

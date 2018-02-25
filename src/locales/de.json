@@ -2,5 +2,8 @@
   "Hello World": "HALLO DORMUND ALLEMAGNE",
   "common": {
     "title": "ICH LIEB DICH"
+  },
+  "bubble": {
+    "text": "In der Graphentheorie ist ein vollständiger Graph ein einfacher Graph, dessen alle Ecken benachbart sind, das heißt, jedes Paar von disjunkten Ecken ist durch eine Kante verbunden. Wenn der Graph orientiert ist, wird gesagt, dass er vollständig ist, wenn jedes Scheitelpunktpaar durch genau zwei Bögen (einer in jeder Richtung) verbunden ist"
   }
 }

@@ -2,5 +2,8 @@
   "Hello World": "Hello World english",
   "common": {
     "title": "this is a title"
+  },
+  "bubble": {
+    "text": "In graph theory, a complete graph is a simple graph whose all vertices are adjacent, that is, any pair of disjoint vertices is connected by an edge. If the graph is oriented, it is said to be complete if each pair of vertices is connected by exactly two arcs (one in each direction"
   }
 }
