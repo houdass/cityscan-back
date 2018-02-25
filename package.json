@@ -59,6 +59,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "should": "^11.2.1",
-    "sinon": "^2.3.6"
+    "sinon": "^2.3.6",
+    "user-agent-string-generator": "0.0.2"
   }
 }

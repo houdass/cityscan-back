@@ -2,6 +2,9 @@ import request from 'request-promise';
 import cheerio from 'cheerio';
 import ejs from 'ejs';
 import fs from 'fs';
+import userAgentGenerator from 'user-agent-string-generator';
+import { round } from 'lodash';
+
 // import i18n from 'i18n';
 import { setData, scrap } from '../helpers/seloger.helper';
 
@@ -24,8 +27,9 @@ const cityscanController = () => {
 
   const analyze = (req, res) => {
     let qs;
+    const userAgent = userAgentGenerator();
     const headers = {
-      'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+      'User-Agent': userAgent
     };
 
     // TODO : refacto
@@ -58,7 +62,7 @@ const cityscanController = () => {
       if (2 <= until) {
         for (let i = 2; i <= until; i++) {
           const url = `http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4&LISTING-LISTpg=${i}`;
-          promises.push(scrap(url, qs, headers));
+          promises.push(scrap(url, qs));
         }
       }
       Promise.all(promises).then((responses) => {
@@ -69,6 +73,17 @@ const cityscanController = () => {
         const script = $('script').toArray().find((script) => $(script).html().indexOf('var ava_data = ') > -1);
         if (script) {
           let text = $(script).html();
+
+          const hrefs = [];
+          $('div.slideContent').each(function() {
+            hrefs.push($(this).children('a').attr('href'));
+          });
+
+          const images = [];
+          $('div.slideContent').each(function() {
+            images.push($(this).find('div[data-lazy]').attr('data-lazy'));
+          });
+
           text = text.split('ar ava_data = ')[1].trim();
           text = text.split('ava_data.logged ')[0].trim();
 
@@ -78,11 +93,11 @@ const cityscanController = () => {
           jsonObj = jsonObj.replace(regex, ''); // remove all trailing commas
 
           const result = JSON.parse(jsonObj).products;
-          const products = setData(result);
-          allData = allData.concat(products);
+          const products = setData(result, images, hrefs);
+          allData = products.concat(allData);
           const prices = allData.filter((item) => item.pricePerSquareMeter && !isNaN(item.pricePerSquareMeter))
                                                       .map((item) => Number(item.pricePerSquareMeter));
-          const avgPricePerSquareMeter = prices.reduce((a, b) => (a) + (b), 0) / prices.length;
+          const avgPricePerSquareMeter = round(prices.reduce((a, b) => (a) + (b), 0) / prices.length);
           const nbResults = allData.length;
           res.status(201).json({ allData, avgPricePerSquareMeter, nbResults });
         }
