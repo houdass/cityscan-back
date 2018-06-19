@@ -6,7 +6,7 @@ import { isEmpty, round } from 'lodash';
 // Set data from seloger info formatted data.
 export const setData = (data, images, hrefs) => {
   let index = 0;
-  const products = data.map((product) => {
+  const products = data.map(product => {
     const item = {};
     item.price = product.prix;
     item.size = product.surface;
@@ -22,7 +22,7 @@ export const setData = (data, images, hrefs) => {
     item.hasShoweroom = !!product.si_sdbain;
     item.floor = !!product.etage;
     if (product.surface && product.surface != 0 && product.prix && product.prix != 0) {
-      item.pricePerSquareMeter = round(parseFloat(product.prix)/parseFloat(product.surface), 2);
+      item.pricePerSquareMeter = round(parseFloat(product.prix) / parseFloat(product.surface), 2);
     }
     item.image = images && images[index] && JSON.parse(images[index]).url;
     item.href = hrefs && hrefs[index];
@@ -39,21 +39,36 @@ export const scrap = (url, qs) => {
     'User-Agent': userAgent
   };
 
-  return request({ url, qs, headers }).then((html) => {
+  return request({ url, qs, headers }).then(html => {
     const $ = cheerio.load(html);
     let jsonObj;
-    const script = $('script').toArray().find((script) => $(script).html().indexOf('var ava_data = ') > -1);
+    const script = $('script')
+      .toArray()
+      .find(
+        script =>
+          $(script)
+            .html()
+            .indexOf('var ava_data = ') > -1
+      );
     if (script) {
       let text = $(script).html();
 
       const hrefs = [];
       $('div.slideContent').each(function() {
-        hrefs.push($(this).children('a').attr('href'));
+        hrefs.push(
+          $(this)
+            .children('a')
+            .attr('href')
+        );
       });
 
       const images = [];
       $('div.slideContent').each(function() {
-        images.push($(this).find('div[data-lazy]').attr('data-lazy'));
+        images.push(
+          $(this)
+            .find('div[data-lazy]')
+            .attr('data-lazy')
+        );
       });
 
       text = text.split('ar ava_data = ')[1].trim();
