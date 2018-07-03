@@ -1,0 +1,9 @@
+{
+  "Hello World": "Hello World english",
+  "common": {
+    "title": "this is a title"
+  },
+  "bubble": {
+    "text": "En la teoría de grafos, un gráfico completo es un gráfico simple cuyos vértices son todos adyacentes, es decir, cualquier par de vértices disjuntos está conectado por un borde. Si el gráfico está orientado, se dice que está completo si cada par de vértices está conectado exactamente por dos arcos (uno en cada dirección)"
+  }
+}

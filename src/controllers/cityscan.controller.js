@@ -15,15 +15,17 @@ const cityscanController = () => {
     /* i18n.setLocale(req.query.city);
     console.log('=>', i18n.__('common.title')); */
     const text = req.query.city;
-    request
-    .get({
-      url: `http://autocomplete.svc.groupe-seloger.com/auto/complete/0/ALL/6?text=${text}`,
-      json: true
-    }, (error, response) => {
-      if (!error && response.statusCode == 200) {
-        res.status(201).json(response.body);
+    request.get(
+      {
+        url: `http://autocomplete.svc.groupe-seloger.com/auto/complete/0/ALL/6?text=${text}`,
+        json: true
+      },
+      (error, response) => {
+        if (!error && response.statusCode == 200) {
+          res.status(201).json(response.body);
+        }
       }
-    });
+    );
   };
 
   const analyze = (req, res) => {
@@ -42,13 +44,19 @@ const cityscanController = () => {
       qs = { idq: req.body.idq };
     }
     qs.idtypebien = req.body.productTypeId;
+
     const url = 'http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4';
+    request({ url, qs, headers }).then(html => {
+      let until = 0;
     request({ url, qs, headers }).then((html) => {
       // =======
       // let until = 0;
       const $ = cheerio.load(html);
       let jsonObj;
 
+      const paginationBloc2 = $('.pagination-bloc2')
+        .text()
+        .trim();
       /* const paginationBloc2 = $('.pagination-bloc2').text().trim();
       if (paginationBloc2 === '') {
         const anchor = $('.pagination-number a[href*="LISTING-LISTpg="]').last();
@@ -67,23 +75,38 @@ const cityscanController = () => {
           promises.push(scrap(url, qs));
         }
       }
-      Promise.all(promises).then((responses) => {
+      Promise.all(promises).then(responses => {
         for (const response of responses) {
           allData = allData.concat(response.products);
         }
 
-        const script = $('script').toArray().find((script) => $(script).html().indexOf('var ava_data = ') > -1);
+        const script = $('script')
+          .toArray()
+          .find(
+            script =>
+              $(script)
+                .html()
+                .indexOf('var ava_data = ') > -1
+          );
         if (script) {
           let text = $(script).html();
 
           const hrefs = [];
           $('div.slideContent').each(function() {
-            hrefs.push($(this).children('a').attr('href'));
+            hrefs.push(
+              $(this)
+                .children('a')
+                .attr('href')
+            );
           });
 
           const images = [];
           $('div.slideContent').each(function() {
-            images.push($(this).find('div[data-lazy]').attr('data-lazy'));
+            images.push(
+              $(this)
+                .find('div[data-lazy]')
+                .attr('data-lazy')
+            );
           });
 
           text = text.split('ar ava_data = ')[1].trim();
@@ -97,9 +120,10 @@ const cityscanController = () => {
           const result = JSON.parse(jsonObj).products;
           const products = setData(result, images, hrefs);
           allData = products.concat(allData);
-          const prices = allData.filter((item) => item.pricePerSquareMeter && !isNaN(item.pricePerSquareMeter))
-                                                      .map((item) => Number(item.pricePerSquareMeter));
-          const avgPricePerSquareMeter = round(prices.reduce((a, b) => (a) + (b), 0) / prices.length);
+          const prices = allData
+            .filter(item => item.pricePerSquareMeter && !isNaN(item.pricePerSquareMeter))
+            .map(item => Number(item.pricePerSquareMeter));
+          const avgPricePerSquareMeter = round(prices.reduce((a, b) => a + b, 0) / prices.length);
           const nbResults = allData.length;
 
           for (const prod of allData) {
@@ -118,15 +142,7 @@ const cityscanController = () => {
   };
 
   const pdf = (req, res) => {
-    const backgroundColor = [
-      '#2ecc71',
-      '#3498db',
-      '#95a5a6',
-      '#9b59b6',
-      '#f1c40f',
-      '#e74c3c',
-      '#34495e'
-    ];
+    const backgroundColor = ['#2ecc71', '#3498db', '#95a5a6', '#9b59b6', '#f1c40f', '#e74c3c', '#34495e'];
     const chartsVisibilities = {
       pie: true,
       bar: true,
@@ -146,7 +162,13 @@ const cityscanController = () => {
     const style = ejs.compile(fs.readFileSync(`${__dirname}/charts/style.ejs`, 'utf8'));
     const styleFn = style();
 
-    const html = compiled({ style: styleFn, chartsVisibilities, pie: pieFn, bar: barFn, bubble: bubbleFn });
+    const html = compiled({
+      style: styleFn,
+      chartsVisibilities,
+      pie: pieFn,
+      bar: barFn,
+      bubble: bubbleFn
+    });
 
     res.pdfFromHTML({
       filename: 'generated.pdf',
@@ -163,13 +185,13 @@ const cityscanController = () => {
     i18n.setLocale(req.user.preference.language || 'fr');
 
     let products = req.body.allData;
-    products = products.map((product) => {
+    products = products.map(product => {
       product.price = product.price && Number(product.price.toString().replace(/,/g, '.'));
       product.size = product.size && Number(product.size.toString().replace(/,/g, '.'));
       return product;
     });
     products = sortBy(products, ['size', 'price']);
-    const bubbleData = products.filter((product) => product.size && product.price).map((product) => {
+    const bubbleData = products.filter(product => product.size && product.price).map(product => {
       const item = {};
       item.data = [
         {
@@ -217,7 +239,13 @@ const cityscanController = () => {
     const style = ejs.compile(fs.readFileSync(`${__dirname}/charts/style.ejs`, 'utf8'));
     const styleFn = style();
 
-    const html = compiled({ style: styleFn, chartsVisibilities, pie: pieFn, bar: barFn, bubble: bubbleFn });
+    const html = compiled({
+      style: styleFn,
+      chartsVisibilities,
+      pie: pieFn,
+      bar: barFn,
+      bubble: bubbleFn
+    });
 
     res.pdfFromHTML({
       filename: 'generated.pdf',

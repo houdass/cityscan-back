@@ -9,7 +9,9 @@
     "prod": "NODE_ENV=PROD gulp prod",
     "debug": "./node_modules/.bin/babel-node $NODE_DEBUG_OPTION ./src/app.js",
     "test": "gulp test",
-    "apidoc": "apidoc -i src/routers/ -o public/"
+    "apidoc": "apidoc -i src/routers/ -o public/",
+    "format:fix": "pretty-quick --staged",
+    "precommit": "run-s format:fix"
   },
   "keywords": [],
   "license": "ISC",
@@ -61,5 +63,11 @@
     "should": "^11.2.1",
     "sinon": "^2.3.6",
     "user-agent-string-generator": "0.0.2"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "npm-run-all": "^4.1.3",
+    "prettier": "^1.13.5",
+    "pretty-quick": "^1.6.0"
   }
 }
