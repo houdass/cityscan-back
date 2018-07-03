@@ -7,7 +7,8 @@ const setUserInfo = (request) => {
     firstName: request.firstName,
     lastName: request.lastName,
     email: request.email,
-    role: request.role
+    role: request.role,
+    preference: request.preference
   };
   return user;
 };

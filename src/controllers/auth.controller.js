@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
+import Preference from '../models/preference';
 import MAIN_CONFIG from '../config/main.config';
+import MONGOOSE from '../constants/mongoose.constants';
 import { setUserInfo } from '../helpers/util.helper';
 import { intersection } from 'lodash';
 
@@ -12,28 +14,16 @@ import { intersection } from 'lodash';
  */
 function generateToken(user) {
   return jwt.sign(user, MAIN_CONFIG.SECRET, {
-    expiresIn: MAIN_CONFIG.EXPIRES_IN // in seconds
-    // TODO create constant
+    expiresIn: MAIN_CONFIG.EXPIRES_IN
   });
 }
-
-const populateRoleAndPermissions = {
-  path: 'role',
-  populate: {
-    path: 'permissions'
-  }
-};
 
 const authController = () => {
   // Login
   const login = (req, res, next) => {
     req.user
-    .populate({
-      path: 'role',
-      populate: {
-        path: 'permissions'
-      }
-    }, (err) => {
+    .populate(MONGOOSE.POPULATE.PREFERENCE)
+    .populate(MONGOOSE.POPULATE.ROLE_AND_PERMISSIONS, (err) => {
       if (err) {
         return next(err);
       }
@@ -55,6 +45,7 @@ const authController = () => {
     const lastName = req.body.lastName;
     const password = req.body.password;
     const role = req.body.role;
+    let preference = req.body.preference;
 
     // Return error if no email provided
     if (!email) {
@@ -66,13 +57,18 @@ const authController = () => {
     // Return error if full name not provided
     if (!firstName || !lastName) {
       return res.status(422).send({
-        error: 'You must enter your full name.'
+        error: 'You must enter your full name (lastname and firstname).'
       });
     }
 
     // Return error if no password provided
     if (!password) {
       return res.status(422).send({ error: 'You must enter a password.' });
+    }
+
+    // Add default language if no preference provided
+    if (!preference || !preference.language) {
+      preference = new Preference({ language: 'test' });
     }
 
     User.findOne({ email }, (err, existingUser) => {
@@ -92,15 +88,20 @@ const authController = () => {
         password,
         firstName,
         lastName,
-        role
+        role,
+        preference
       });
 
       user.save((err, user) => {
         if (err) {
           return next(err);
         }
-
-        user.populate(populateRoleAndPermissions, (err) => {
+        preference.save((err, preference) => {
+          if (err) {
+            return next(err);
+          }
+        });
+        user.populate(MONGOOSE.POPULATE.ROLE_AND_PERMISSIONS, (err) => {
           if (err) {
             return next(err);
           }

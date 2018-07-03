@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt-nodejs';
 import mongoose from 'mongoose';
+import Role from './role';
+import ROLES from '../constants/role.constants';
+
 const Schema = mongoose.Schema;
 
-// ================================
-// User Schema
-// ================================
 const UserSchema = new Schema({
     email: {
       type: String,
@@ -14,14 +14,21 @@ const UserSchema = new Schema({
     },
     password: {
       type: String,
-      // select: false,
       required: true
     },
     firstName: { type: String },
     lastName: { type: String },
+    preference: {
+      type: Schema.Types.ObjectId,
+      ref: 'Preference'
+    },
     role: {
       type: Schema.Types.ObjectId,
       ref: 'Role'
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     },
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Date }
@@ -43,7 +50,18 @@ UserSchema.pre('save', function(next) {
     bcrypt.hash(user.password, salt, null, (err, hash) => {
       if (err) return next(err);
       user.password = hash;
-      next();
+      if (!user.role) {
+        Role.findOne({ label: ROLES.CLIENT }, (err, role) => {
+          if (err) {
+            return next(err);
+          } else {
+            user.role = role._id;
+            next();
+          }
+        });
+      } else {
+        next();
+      }
     });
   });
 });

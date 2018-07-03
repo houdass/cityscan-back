@@ -12,12 +12,13 @@ const MAIN_CONFIG = require('./config/main.config');
 const authRouter = require('./routers/auth.router')();
 const userRouter = require('./routers/user.router')();
 const roleRouter = require('./routers/role.router')();
+const preferenceRouter = require('./routers/preference.router')();
 const permissionRouter = require('./routers/permission.router')();
 const cityScanRouter = require('./routers/cityscan.router')();
 import i18n from 'i18n';
 
 i18n.configure({
-  locales: ['fr', 'en', 'de'],
+  locales: ['en', 'es', 'fr', 'it', 'pt'],
   directory: `${__dirname}/locales`,
   objectNotation: true
 });
@@ -58,6 +59,7 @@ app.use('/api', apiRoutes);
 apiRoutes.use('/auth', authRouter);
 apiRoutes.use('/users', userRouter);
 apiRoutes.use('/roles', roleRouter);
+apiRoutes.use('/preferences', preferenceRouter);
 apiRoutes.use('/permissions', permissionRouter);
 apiRoutes.use('/cityscan', cityScanRouter);
 

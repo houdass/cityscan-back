@@ -1,0 +1,9 @@
+{
+  "Hello World": "HALLO DORMUND ALLEMAGNE",
+  "common": {
+    "title": "ICH LIEB DICH"
+  },
+  "bubble": {
+    "text": "Na teoria do gráfico, um gráfico completo é um gráfico simples, cujos todos os vértices são adjacentes, ou seja, qualquer par de vértices disjuntos é conectado por uma borda. Se o gráfico estiver orientado, é dito estar completo se cada par de vértices estiver conectado exatamente por dois arcos (um em cada direção)"
+  }
+}

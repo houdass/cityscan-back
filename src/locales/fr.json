@@ -4,6 +4,6 @@
     "title": "ceci est un titre"
   },
   "bubble": {
-    "text": "En théorie des graphes, un graphe complet est un graphe simple dont tous les sommets sont adjacents, c'est-à-dire que tout couple de sommets disjoints est relié par une arête. Si le graphe est orienté, on dit qu'il est complet si chaque paire de sommets est reliée par exactement deux arcs (un dans chaque sens"
+    "text": "En théorie des graphes, un graphe complet est un graphe simple dont tous les sommets sont adjacents, c'est-à-dire que tout couple de sommets disjoints est relié par une arête. Si le graphe est orienté, on dit qu'il est complet si chaque paire de sommets est reliée par exactement deux arcs (un dans chaque sens)"
   }
 }

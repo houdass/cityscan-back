@@ -5,7 +5,9 @@ import fs from 'fs';
 import userAgentGenerator from 'user-agent-string-generator';
 import { round, sortBy } from 'lodash';
 import i18n from 'i18n';
-import { setData, scrap } from '../helpers/seloger.helper';
+import { setData, scrap, getLastPage } from '../helpers/seloger.helper';
+
+import Product from '../models/product';
 
 const cityscanController = () => {
   // Get Places
@@ -43,18 +45,19 @@ const cityscanController = () => {
     const url = 'http://www.seloger.com/list.htm?tri=initial&idtt=2&naturebien=1,2,4';
     request({ url, qs, headers }).then((html) => {
       // =======
-      let until = 0;
+      // let until = 0;
       const $ = cheerio.load(html);
       let jsonObj;
 
-      const paginationBloc2 = $('.pagination-bloc2').text().trim();
+      /* const paginationBloc2 = $('.pagination-bloc2').text().trim();
       if (paginationBloc2 === '') {
         const anchor = $('.pagination-number a[href*="LISTING-LISTpg="]').last();
         until = anchor.text();
       } else {
         const anchor = $('.pagination-bloc2 a[href*="LISTING-LISTpg="]').last();
         until = anchor.text().replace('+', '');
-      }
+      } */
+      const until = getLastPage($);
 
       let allData = [];
       const promises = [];
@@ -98,6 +101,16 @@ const cityscanController = () => {
                                                       .map((item) => Number(item.pricePerSquareMeter));
           const avgPricePerSquareMeter = round(prices.reduce((a, b) => (a) + (b), 0) / prices.length);
           const nbResults = allData.length;
+
+          for (const prod of allData) {
+            const product = new Product(prod);
+            product.user = req.user._id;
+            product.save((err) => {
+              if (err) {
+                res.status(422).json({ error: 'Problem occured while saving products.' });
+              }
+            });
+          }
           res.status(201).json({ allData, avgPricePerSquareMeter, nbResults });
         }
       });
@@ -147,7 +160,7 @@ const cityscanController = () => {
   };
 
   const pdfPost = (req, res) => {
-    i18n.setLocale(req.body.lang || 'fr');
+    i18n.setLocale(req.user.preference.language || 'fr');
 
     let products = req.body.allData;
     products = products.map((product) => {
@@ -170,12 +183,11 @@ const cityscanController = () => {
       return item;
     });
 
-    console.log(products.map((item) => item.size));
-    console.log(products.map((item) => item.price));
-
     const bubbleTexts = {
       text: i18n.__('bubble.text')
     };
+
+    console.log(bubbleTexts);
 
     const backgroundColor = [
       '#2ecc71',

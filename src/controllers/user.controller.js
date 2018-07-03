@@ -1,12 +1,6 @@
 import User from '../models/user';
+import MONGOOSE from '../constants/mongoose.constants';
 import { setUserInfo } from '../helpers/util.helper';
-
-const populateRoleAndPermissions = {
-  path: 'role',
-  populate: {
-    path: 'permissions'
-  }
-};
 
 const userController = () => {
   // Add User
@@ -20,7 +14,7 @@ const userController = () => {
       if (err) {
         res.status(500).send(err);
       } else {
-        user.populate(populateRoleAndPermissions, (err) => {
+        user.populate(MONGOOSE.POPULATE.ROLE_AND_PERMISSIONS, (err) => {
           if (err) {
             res.status(500).send(err);
           } else {
@@ -39,7 +33,8 @@ const userController = () => {
   // Find User
   const findAll = (req, res) => {
     User.find({})
-    .populate(populateRoleAndPermissions)
+    .populate(MONGOOSE.POPULATE.PREFERENCE)
+    .populate(MONGOOSE.POPULATE.ROLE_AND_PERMISSIONS)
     .exec((err, users) => {
       if (err) {
         res.status(500).send(err);
@@ -53,7 +48,8 @@ const userController = () => {
   // User Middleware
   const middleware = (req, res, next) => {
     User.findById(req.params.id)
-    .populate(populateRoleAndPermissions)
+    .populate(MONGOOSE.POPULATE.PREFERENCE)
+    .populate(MONGOOSE.POPULATE.ROLE_AND_PERMISSIONS)
     .exec((err, user) => {
       if (err) {
         res.status(500).send(err);

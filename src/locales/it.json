@@ -1,0 +1,9 @@
+{
+  "Hello World": "Hello World english",
+  "common": {
+    "title": "this is a title"
+  },
+  "bubble": {
+    "text": "Nella teoria dei grafi, un grafo completo è un semplice grafo i cui tutti i vertici sono adiacenti, cioè qualsiasi coppia di vertici disgiunti è collegata da un bordo. Se il grafico è orientato, si dice che sia completo se ogni coppia di vertici è collegata esattamente da due archi (uno in ogni direzione)"
+  }
+}

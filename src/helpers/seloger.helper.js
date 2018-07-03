@@ -69,3 +69,15 @@ export const scrap = (url, qs) => {
     }
   });
 };
+
+// Get the last page number of seloger page.
+export const getLastPage = ($) => {
+  const paginationBloc2 = $('.pagination-bloc2').text().trim();
+  if (paginationBloc2 === '') {
+    const anchor = $('.pagination-number a[href*="LISTING-LISTpg="]').last();
+    return anchor.text();
+  } else {
+    const anchor = $('.pagination-bloc2 a[href*="LISTING-LISTpg="]').last();
+    return anchor.text().replace('+', '');
+  }
+};
